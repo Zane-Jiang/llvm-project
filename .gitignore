@@ -23,6 +23,10 @@
 #OS X specific files.
 .DS_store
 
+*.o
+*.ll
+*.bc
+
 # Ignore the user specified CMake presets in subproject directories.
 /*/CMakeUserPresets.json
 

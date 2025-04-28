@@ -8,6 +8,12 @@ struct HeapProfiler : public PassInfoMixin<HeapProfiler> {
 public:
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &);
   static bool isRequired() { return true; }
+
+private:
+  void instrumentAlloc(CallBase *CI, Module &M);
+  void instrumentFree(CallBase *I, Module &M);
+  void instrumentAccess(Instruction *I, Module &M);
+  uint64_t generateAllocID(DebugLoc &Loc);
 };
 } // namespace
 
