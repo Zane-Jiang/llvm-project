@@ -1,0 +1,3 @@
+export CE_MODE=CE_EXPLICIT
+export CE_CXL_NODE=2
+export CE_ALLOC=CE_ALLOC_CXL

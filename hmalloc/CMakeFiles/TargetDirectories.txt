@@ -1,0 +1,8 @@
+/home/jz/hmsdk/hmalloc/CMakeFiles/hmctl.dir
+/home/jz/hmsdk/hmalloc/CMakeFiles/hmalloc.dir
+/home/jz/hmsdk/hmalloc/CMakeFiles/edit_cache.dir
+/home/jz/hmsdk/hmalloc/CMakeFiles/rebuild_cache.dir
+/home/jz/hmsdk/hmalloc/CMakeFiles/list_install_components.dir
+/home/jz/hmsdk/hmalloc/CMakeFiles/install.dir
+/home/jz/hmsdk/hmalloc/CMakeFiles/install/local.dir
+/home/jz/hmsdk/hmalloc/CMakeFiles/install/strip.dir

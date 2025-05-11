@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/home/jz/hmsdk/hmalloc",
+  "command": "/usr/bin/cc   -O2 -g -DNDEBUG -Wall -Wextra -pedantic -o CMakeFiles/hmctl.dir/src/hmctl.c.o -c /home/jz/hmsdk/hmalloc/src/hmctl.c",
+  "file": "/home/jz/hmsdk/hmalloc/src/hmctl.c",
+  "output": "CMakeFiles/hmctl.dir/src/hmctl.c.o"
+},
+{
+  "directory": "/home/jz/hmsdk/hmalloc",
+  "command": "/usr/bin/cc -Dhmalloc_EXPORTS -I/home/jz/hmsdk/hmalloc/include -I/home/jz/hmsdk/hmalloc/src -O2 -g -DNDEBUG -fPIC -Wall -Wextra -pedantic -o CMakeFiles/hmalloc.dir/src/hmalloc.c.o -c /home/jz/hmsdk/hmalloc/src/hmalloc.c",
+  "file": "/home/jz/hmsdk/hmalloc/src/hmalloc.c",
+  "output": "CMakeFiles/hmalloc.dir/src/hmalloc.c.o"
+},
+{
+  "directory": "/home/jz/hmsdk/hmalloc",
+  "command": "/usr/bin/cc -Dhmalloc_EXPORTS -I/home/jz/hmsdk/hmalloc/include -I/home/jz/hmsdk/hmalloc/src -O2 -g -DNDEBUG -fPIC -Wall -Wextra -pedantic -o CMakeFiles/hmalloc.dir/src/env.c.o -c /home/jz/hmsdk/hmalloc/src/env.c",
+  "file": "/home/jz/hmsdk/hmalloc/src/env.c",
+  "output": "CMakeFiles/hmalloc.dir/src/env.c.o"
+}
+]

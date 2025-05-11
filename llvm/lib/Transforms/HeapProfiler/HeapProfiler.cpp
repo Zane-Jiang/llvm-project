@@ -10,79 +10,112 @@ using namespace llvm;
 template class llvm::PassInfoMixin<HeapProfiler>;
 
 PreservedAnalyses HeapProfiler::run(Module &M, ModuleAnalysisManager &) {
-  LLVMContext &Ctx = M.getContext();
-  Type* VoidPtrTy  = Type::getInt8PtrTy(Ctx);
-  Type* Int8PtrTy = Type::getInt8PtrTy(Ctx);
-  
-  FunctionCallee RegisterFunc = M.getOrInsertFunction(
-      "__heap_profile_register", 
-      FunctionType::get(VoidPtrTy, {Int8PtrTy, Type::getInt64Ty(Ctx), Type::getInt64Ty(Ctx)}, false));
+  std::vector<CallBase*> allocCalls, freeCalls;
+  std::vector<Instruction*> accessInsts;
 
-  FunctionCallee RecordFunc = M.getOrInsertFunction(
-      "__heap_profile_record_access",
-      FunctionType::get(Type::getVoidTy(Ctx), {Int8PtrTy, Type::getInt1Ty(Ctx)}, false));
-
-  FunctionCallee UnregisterFunc = M.getOrInsertFunction(
-        "__heap_profile_unregister",
-        FunctionType::get(Type::getVoidTy(Ctx), {Int8PtrTy}, false));
-      
   for (Function &F : M) {
     for (BasicBlock &BB : F) {
       for (Instruction &I : BB) {
-          if (auto *CI = dyn_cast<CallBase>(&I)) {
-            if (Function *Callee = CI->getCalledFunction()) {
-              StringRef Name = Callee->getName();
-                if (Name.contains("malloc") || Name.contains("calloc") || 
-                  Name.contains("realloc")) {
-                  instrumentAlloc(CI, M);
-                } else if (Name == "free") {
-                  instrumentFree(CI, M);
-                }
-              }
-          } else if (isa<LoadInst>(I) || isa<StoreInst>(I)) {
-                instrumentAccess(&I, M);
+        if (auto *CI = dyn_cast<CallBase>(&I)) {
+          if (Function *Callee = CI->getCalledFunction()) {
+            StringRef Name = Callee->getName();
+            if (Name.contains("malloc") || Name.contains("calloc") || Name.contains("realloc")) {
+              allocCalls.push_back(CI);
+            } else if (Name == "free") {
+              freeCalls.push_back(CI);
+            }
           }
+        } else if (isa<LoadInst>(I) || isa<StoreInst>(I)) {
+          accessInsts.push_back(&I);
+        }
       }
     }
   }
+
+  for (auto *CI : allocCalls) instrumentAlloc(CI, M);
+  for (auto *CI : freeCalls) instrumentFree(CI, M);
+  for (auto *I : accessInsts) instrumentAccess(I, M);
 
   return PreservedAnalyses::all();
 }
 
 void HeapProfiler::instrumentAlloc(CallBase *CI, Module &M) {
-  IRBuilder<> Builder(CI->getNextNode());
+  IRBuilder<> Builder(CI->getNextNode() ? CI->getNextNode() : CI);
   LLVMContext &Ctx = M.getContext();
   Type* Int8PtrTy = PointerType::get(Type::getInt8Ty(Ctx), 0);
   Value *Ptr = Builder.CreateBitCast(CI, Int8PtrTy);
-  
-  Value *Size = CI->getArgOperand(0);
-  if (CI->getCalledFunction()->getName() == "calloc") {
-    Value *Nmemb = CI->getArgOperand(1);
-    Size = Builder.CreateMul(Size, Nmemb);
+
+  if (CI->arg_size() < 1) {
+    errs() << "instrumentAlloc: not enough arguments!\n";
+    CI->print(errs());
+    errs() << "\n";
+    return;
   }
-  
+  Value *Size = CI->getArgOperand(0);
+
+  if (Function *F = CI->getCalledFunction()) {
+    if (F->getName() == "calloc") {
+      if (CI->arg_size() < 2) {
+        errs() << "instrumentAlloc: calloc not enough arguments!\n";
+        CI->print(errs());
+        errs() << "\n";
+        return;
+      }
+      Value *Nmemb = CI->getArgOperand(1);
+      Size = Builder.CreateMul(Size, Nmemb);
+    }
+  }
+
+  if (Size->getType()->isPointerTy()) {
+    Size = Builder.CreatePtrToInt(Size, Type::getInt64Ty(Ctx));
+  } else if (Size->getType()->isIntegerTy() && Size->getType()->getIntegerBitWidth() != 64) {
+    Size = Builder.CreateZExtOrTrunc(Size, Type::getInt64Ty(Ctx));
+  }
+
   DebugLoc Loc = CI->getDebugLoc();
   uint64_t ID = generateAllocID(Loc);
 
-  FunctionCallee RegisterFunc = M.getFunction("__heap_profile_register");
+  FunctionCallee RegisterFunc = M.getOrInsertFunction(
+      "__heap_profile_register",
+      FunctionType::get(Int8PtrTy, {Int8PtrTy, Type::getInt64Ty(Ctx), Type::getInt64Ty(Ctx)}, false));
+  if (!RegisterFunc) {
+    errs() << "instrumentAlloc: RegisterFunc is nullptr!\n";
+    return;
+  }
   Builder.CreateCall(RegisterFunc, {Ptr, Size, Builder.getInt64(ID)});
+  errs() << "alloc"<<Ptr<<"\n";
 }
 
 void HeapProfiler::instrumentFree(CallBase *CI, Module &M) {
-  IRBuilder<> Builder(CI);
+  IRBuilder<> Builder(CI->getNextNode() ? CI->getNextNode() : CI);
+
+  if (CI->arg_size() < 1) {
+    errs() << "instrumentFree: not enough arguments!\n";
+    CI->print(errs());
+    errs() << "\n";
+    return;
+  }
   Value *Ptr = CI->getArgOperand(0);
+
   LLVMContext &Ctx = M.getContext();
   Type* Int8PtrTy = PointerType::get(Type::getInt8Ty(Ctx), 0);
   Ptr = Builder.CreateBitCast(Ptr, Int8PtrTy);
-  
-  FunctionCallee UnregisterFunc = M.getFunction("__heap_profile_unregister");
+
+  FunctionCallee UnregisterFunc = M.getOrInsertFunction(
+      "__heap_profile_unregister",
+      FunctionType::get(Type::getVoidTy(Ctx), {Int8PtrTy}, false));
+  if (!UnregisterFunc) {
+    errs() << "instrumentFree: UnregisterFunc is nullptr!\n";
+    return;
+  }
   Builder.CreateCall(UnregisterFunc, {Ptr});
+  errs() << "free"<<Ptr<<"\n";
 }
 
 void HeapProfiler::instrumentAccess(Instruction *I, Module &M) {
   Value *Addr = nullptr;
   bool isWrite = false;
-  
+
   if (auto *LI = dyn_cast<LoadInst>(I)) {
     Addr = LI->getPointerOperand();
     isWrite = false;
@@ -90,23 +123,45 @@ void HeapProfiler::instrumentAccess(Instruction *I, Module &M) {
     Addr = SI->getPointerOperand();
     isWrite = true;
   }
-  
-  if (!Addr) return;
-  
+
+  if (!Addr) {
+    errs() << "instrumentAccess: Addr is nullptr\n";
+    return;
+  }
+
+  if (!Addr->getType()->isPointerTy()) {
+    errs() << "instrumentAccess: Addr is not a pointer!\n";
+    I->print(errs());
+    errs() << "\n";
+    return;
+  }
+
   IRBuilder<> Builder(I);
   Value *AddrCast = Builder.CreateBitCast(Addr, 
       PointerType::get(Type::getInt8Ty(M.getContext()), 0));
-  
-  FunctionCallee RecordFunc = M.getFunction("__heap_profile_record_access");
+
+  FunctionCallee RecordFunc = M.getOrInsertFunction(
+      "__heap_profile_record_access",
+      FunctionType::get(Type::getVoidTy(M.getContext()), 
+                        {PointerType::get(Type::getInt8Ty(M.getContext()), 0), 
+                         Type::getInt1Ty(M.getContext())}, false));
   Builder.CreateCall(RecordFunc, {AddrCast, Builder.getInt1(isWrite)});
+  errs() << "record access"<<AddrCast<<"\n";
 }
 
 uint64_t HeapProfiler::generateAllocID(DebugLoc &Loc) {
-  if (!Loc) return 0;
-  return hash_combine(
-      hash_value(Loc->getFilename()),
-      Loc.getLine(),
-      Loc.getCol());
+  static uint64_t next_id = 1;
+  uint64_t id = next_id++;
+  
+  if (Loc) {
+    id = hash_combine(
+        id,  
+        hash_value(Loc->getFilename()),
+        Loc.getLine(),
+        Loc.getCol());
+  }
+  
+  return id ? id : next_id++;
 }
 
 extern "C" LLVM_ATTRIBUTE_WEAK PassPluginLibraryInfo llvmGetPassPluginInfo() {

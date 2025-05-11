@@ -1,0 +1,1 @@
+/usr/bin/cc -O2 -g -DNDEBUG -Wl,--dependency-file=CMakeFiles/hmctl.dir/link.d CMakeFiles/hmctl.dir/src/hmctl.c.o -o hmctl  /usr/lib/x86_64-linux-gnu/libnuma.so

@@ -1,0 +1,6 @@
+=== Final Statistics ===
+TYPE | ptr | size | id | read_count | write_count
+ALLOC 0x5618c3714490 4 1
+FINAL_STATS 0x5618c3714490 4 1 1 1
+ALLOC 0x5618c3714490 4 2
+=== Final Statistics === hash_table size: 0
