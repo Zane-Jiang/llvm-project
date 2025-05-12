@@ -4,7 +4,9 @@
 #include "llvm/IR/Module.h"
 #include "llvm/IR/Instructions.h"
 #include "llvm/IR/Type.h"
+#include "llvm/IR/IRBuilder.h"
 #include "llvm/Transforms/HeapProfiler/HeapProfiler.h"
+#include <string>
 
 using namespace llvm;
 template class llvm::PassInfoMixin<HeapProfiler>;
@@ -73,17 +75,23 @@ void HeapProfiler::instrumentAlloc(CallBase *CI, Module &M) {
   }
 
   DebugLoc Loc = CI->getDebugLoc();
-  uint64_t ID = generateAllocID(Loc);
+  std::string LocationStr;
+  uint64_t ID = generateAllocID(Loc,LocationStr);
+  Value *LocationStrVal = Builder.CreateGlobalString(LocationStr);
 
   FunctionCallee RegisterFunc = M.getOrInsertFunction(
       "__heap_profile_register",
-      FunctionType::get(Int8PtrTy, {Int8PtrTy, Type::getInt64Ty(Ctx), Type::getInt64Ty(Ctx)}, false));
+      FunctionType::get(Int8PtrTy, 
+                       {Int8PtrTy, 
+                        Type::getInt64Ty(Ctx), 
+                        Type::getInt64Ty(Ctx),
+                        PointerType::get(Type::getInt8Ty(Ctx), 0)}, 
+                       false));
   if (!RegisterFunc) {
     errs() << "instrumentAlloc: RegisterFunc is nullptr!\n";
     return;
   }
-  Builder.CreateCall(RegisterFunc, {Ptr, Size, Builder.getInt64(ID)});
-  errs() << "alloc"<<Ptr<<"\n";
+  Builder.CreateCall(RegisterFunc, {Ptr, Size, Builder.getInt64(ID), LocationStrVal});
 }
 
 void HeapProfiler::instrumentFree(CallBase *CI, Module &M) {
@@ -109,7 +117,6 @@ void HeapProfiler::instrumentFree(CallBase *CI, Module &M) {
     return;
   }
   Builder.CreateCall(UnregisterFunc, {Ptr});
-  errs() << "free"<<Ptr<<"\n";
 }
 
 void HeapProfiler::instrumentAccess(Instruction *I, Module &M) {
@@ -146,21 +153,21 @@ void HeapProfiler::instrumentAccess(Instruction *I, Module &M) {
                         {PointerType::get(Type::getInt8Ty(M.getContext()), 0), 
                          Type::getInt1Ty(M.getContext())}, false));
   Builder.CreateCall(RecordFunc, {AddrCast, Builder.getInt1(isWrite)});
-  errs() << "record access"<<AddrCast<<"\n";
 }
 
-uint64_t HeapProfiler::generateAllocID(DebugLoc &Loc) {
+uint64_t HeapProfiler::generateAllocID(DebugLoc &Loc , std::string& LocationStr) {
   static uint64_t next_id = 1;
-  uint64_t id = next_id++;
-  
+  int id = 0;
+  LocationStr = "unknown:0:0";
   if (Loc) {
-    id = hash_combine(
-        id,  
+    id = hash_combine(  
         hash_value(Loc->getFilename()),
         Loc.getLine(),
         Loc.getCol());
+    LocationStr = Loc->getFilename().str() + ":" + 
+               std::to_string(Loc.getLine()) + ":" + 
+               std::to_string(Loc.getCol());
   }
-  
   return id ? id : next_id++;
 }
 

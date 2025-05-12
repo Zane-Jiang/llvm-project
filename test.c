@@ -87,5 +87,11 @@ int main() {
     int* c = (int*)malloc(sizeof(int));
     *c = 40;
     printf("c: %p\n", c);
+    free(c);
+
+    int* d = (int*)malloc(sizeof(int));
+   *d = 40;
+    printf("d: %p\n", d);
+    free(d);
     return 0;
 }

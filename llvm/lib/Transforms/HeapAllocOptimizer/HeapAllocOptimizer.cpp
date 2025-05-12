@@ -9,104 +9,70 @@
 #include "llvm/ProfileData/InstrProfReader.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/MemoryBuffer.h"
+#include <fstream>
+#include <sstream>
+#include <string>
 using namespace llvm;
 
 PreservedAnalyses HeapAllocOptimizer::run(Module &M, ModuleAnalysisManager &AM) {
-  DenseMap<uint64_t, uint64_t> AccessMap;
-  if (!loadProfileData(M, AccessMap)) {
-    return PreservedAnalyses::all();
+  AccessMap.clear();
+  if (!loadProfileDataFromTxt(AccessMap)) {
+    return PreservedAnalyses::none();
   }
-
-  auto &FAM = AM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
-  
+  std::vector<CallBase*> ToReplace;
   for (Function &F : M) {
-    BlockFrequencyInfo &BFI = FAM.getResult<BlockFrequencyAnalysis>(F);
-    
     for (BasicBlock &BB : F) {
-      auto Freq = BFI.getBlockFreq(&BB).getFrequency();
-      
       for (Instruction &I : BB) {
         if (auto *CI = dyn_cast<CallBase>(&I)) {
           if (Function *Callee = CI->getCalledFunction()) {
-            if (Callee->getName().contains("malloc")) {
-              DebugLoc Loc = CI->getDebugLoc();
-              uint64_t ID = hash_combine(
-                  hash_value(Loc->getFilename()),
-                  Loc.getLine(),
-                  Loc.getCol());
-              
-              uint64_t Hotness = AccessMap.lookup(ID) * Freq;
-              StringRef NewAlloc = selectAllocator(Hotness);
-              
-              if (!NewAlloc.empty()) {
-                replaceAllocator(CI, NewAlloc, M);
-              }
+            StringRef Name = Callee->getName();
+            if (Name.contains("malloc") || Name.contains("calloc") || Name.contains("realloc")) {
+              ToReplace.push_back(CI);
             }
           }
         }
       }
     }
   }
-  return PreservedAnalyses::none();
+  for (CallBase* CI : ToReplace) {
+    replaceAllocator(CI, *CI->getModule());
+  }
+  return PreservedAnalyses::all();
 }
 
-bool HeapAllocOptimizer::loadProfileData(Module &M, 
-                                       DenseMap<uint64_t, uint64_t> &AccessMap) {
-  auto BufferOrErr = MemoryBuffer::getFile("heap.prof");
-  if (auto EC = BufferOrErr.getError()) {
-    M.getContext().emitError("无法打开profile文件: " + EC.message());
-    return false;
-  }
-
-  auto ReaderOrErr = InstrProfReader::create(std::move(BufferOrErr.get()));
-  if (Error E = ReaderOrErr.takeError()) {
-    M.getContext().emitError(toString(std::move(E)));
-    return false;
-  }
-  
-  std::unique_ptr<InstrProfReader> Reader = std::move(ReaderOrErr.get());
-
-  NamedInstrProfRecord Record;
-  while (true) {
-    Expected<InstrProfRecord> RecordOrErr = Reader->readNextRecord(Record);
-    
-    if (!RecordOrErr) {
-      Error E = RecordOrErr.takeError();
-      bool IsEOF = false;
-      handleAllErrors(
-          std::move(E),
-          [&](const InstrProfError &IPE) {
-            if (IPE.get() == instrprof_error::eof) {
-              IsEOF = true;
-            } else {
-              M.getContext().emitError("Profile data error: " + IPE.message());
-            }
-          },
-          [&](const ErrorInfoBase &EI) {
-            M.getContext().emitError("unknown error: " + EI.message());
-          });
-      
-      if (IsEOF) break;
-      return false;
-    }
-
-    if (Record.Counts.size() > 0) {
-      AccessMap[Record.Hash] = Record.Counts[0];
-    }
+bool HeapAllocOptimizer::loadProfileDataFromTxt(DenseMap<uint64_t, uint64_t> &AccessMap) {
+  std::ifstream infile("heap.prof");
+  if (!infile.is_open()) return false;
+  std::string line;
+  std::getline(infile, line);
+  std::getline(infile, line);
+  while (std::getline(infile, line)) {
+    std::istringstream iss(line);
+    uint64_t id, size, read_count, write_count;
+    std::string ptr, location;
+    if (!(iss >> id >> ptr >> location >> size >> read_count >> write_count)) continue;
+    AccessMap[id] = read_count + write_count;
   }
   return true;
 }
 
-StringRef HeapAllocOptimizer::selectAllocator(uint64_t hotness) const {
-  // 阈值根据实际硬件调整
-  const uint64_t CXLThreshold = 100000; 
-  return hotness > CXLThreshold ? "cxl_malloc" : "local_malloc";
+StringRef HeapAllocOptimizer::selectAllocator(CallBase *CI) const {
+  uint64_t ID = generateAllocID(CI->getDebugLoc());
+  uint64_t hotness = 0;
+  auto it = AccessMap.find(ID);
+  if (it != AccessMap.end()) hotness = it->second;
+  const uint64_t CXLThreshold = 1; 
+  //todo add alloc support
+  return hotness > CXLThreshold ? "hmalloc" : "malloc";
 }
 
-void HeapAllocOptimizer::replaceAllocator(CallBase *CI, StringRef NewAlloc, Module &M) const {
+void HeapAllocOptimizer::replaceAllocator(CallBase *CI, Module &M) const {
+  StringRef NewAlloc = selectAllocator(CI);
+  if(NewAlloc.empty()){
+    return ;
+  }
   IRBuilder<> Builder(CI);
   FunctionType *FTy = CI->getFunctionType();
-  
   Function *NewFunc = M.getFunction(NewAlloc);
   if (!NewFunc) {
     NewFunc = Function::Create(FTy, GlobalValue::ExternalLinkage, NewAlloc, M);
@@ -114,7 +80,8 @@ void HeapAllocOptimizer::replaceAllocator(CallBase *CI, StringRef NewAlloc, Modu
   }
   
   SmallVector<Value *, 4> Args;
-  for (unsigned i = 0; i < CI->getNumOperands(); ++i) {
+  unsigned numArgs = CI->arg_size();
+  for (unsigned i = 0; i < numArgs; ++i) {
     Args.push_back(CI->getArgOperand(i));
   }
   CallInst *NewCall = Builder.CreateCall(FTy, NewFunc, Args);
@@ -122,7 +89,17 @@ void HeapAllocOptimizer::replaceAllocator(CallBase *CI, StringRef NewAlloc, Modu
   CI->eraseFromParent();
 }
 
-
+uint64_t HeapAllocOptimizer::generateAllocID(const DebugLoc &Loc) const {
+  static uint64_t next_id = 1;
+  int id = 0;
+  if (Loc) {
+    id = hash_combine(  
+        hash_value(Loc->getFilename()),
+        Loc.getLine(),
+        Loc.getCol());
+  }
+  return id ? id : next_id++;
+}
 
 extern "C" LLVM_ATTRIBUTE_WEAK PassPluginLibraryInfo llvmGetPassPluginInfo() {
   return {
@@ -132,6 +109,7 @@ extern "C" LLVM_ATTRIBUTE_WEAK PassPluginLibraryInfo llvmGetPassPluginInfo() {
             [](StringRef Name, ModulePassManager &MPM,
                ArrayRef<PassBuilder::PipelineElement>) {
               if (Name == "heap-optimizer") {
+                errs()<<"Name == heap-optimizer";
                 MPM.addPass(HeapAllocOptimizer());
                 return true;
               }

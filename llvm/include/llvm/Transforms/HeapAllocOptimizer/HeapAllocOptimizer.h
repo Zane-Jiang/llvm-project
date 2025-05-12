@@ -7,9 +7,11 @@ public:
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM);
   static bool isRequired() { return false; }
 private:
-  StringRef selectAllocator(uint64_t hotness) const;
-  void replaceAllocator(CallBase *CI, StringRef NewAlloc, Module &M) const;
-  bool loadProfileData(Module &M, DenseMap<uint64_t, uint64_t> &AccessMap);
+  StringRef selectAllocator(CallBase *CI) const;
+  void replaceAllocator(CallBase *CI, Module &M) const;
+  bool loadProfileDataFromTxt(DenseMap<uint64_t, uint64_t> &AccessMap);
+  uint64_t generateAllocID(const DebugLoc &Loc) const;
+  DenseMap<uint64_t, uint64_t> AccessMap;
 };
 } // namespace
 

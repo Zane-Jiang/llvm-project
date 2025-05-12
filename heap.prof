@@ -1,6 +1,5 @@
 === Final Statistics ===
-TYPE | ptr | size | id | read_count | write_count
-ALLOC 0x5618c3714490 4 1
-FINAL_STATS 0x5618c3714490 4 1 1 1
-ALLOC 0x5618c3714490 4 2
-=== Final Statistics === hash_table size: 0
+id | ptr | location | size | read_count | write_count
+1252655625 0x55e8c94c2490 test.c:74:20 4 1 1
+949087689 0x55e8c94c2490 test.c:87:20 4 0 1
+1613637490 0x55e8c94c2490 test.c:92:20 4 0 1
