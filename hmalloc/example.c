@@ -28,15 +28,17 @@ double measure_access_time(char *ptr, size_t size) {
 }
 
 int main() {
-    size_t hsz = 256 * MiB;
-    size_t sz = 256 * MiB;
+    size_t hsz = (2000) * MiB;
+    size_t sz = (2000) * MiB;
 
+    system("numactl -H ");
     p = malloc(sz);
     memset(p, 'x', sz);
 
     hp = hmalloc(hsz);
     memset(hp, 'x', hsz);
-
+    printf("After hmalloc================================================\n");
+    system("numactl -H ");
     printf("%ld MiB is allocated by malloc().\n", sz / MiB);
     printf("%ld MiB is allocated by hmalloc().\n", hsz / MiB);
 

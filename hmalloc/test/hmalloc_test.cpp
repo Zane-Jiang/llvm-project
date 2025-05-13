@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <fcntl.h>
-#include <hmalloc.h>
+#include "../include/hmalloc.h"
 #include <jemalloc/jemalloc.h>
 #include <numa.h>
 #include <numaif.h>

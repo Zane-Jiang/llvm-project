@@ -1,7 +1,7 @@
 /* Copyright (c) 2024 SK hynix, Inc. */
 /* SPDX-License-Identifier: BSD 2-Clause */
 
-#include <hmalloc.h>
+#include "../include/hmalloc.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,15 +14,17 @@ char *p;
 char *hp;
 
 int main() {
-    size_t hsz = 512;
-    size_t sz = 256;
+    size_t hsz = 3000;
+    size_t sz = 3000;
 
+    system("numactl -H");
     p = malloc(sz * MiB);
     memset(p, 'x', sz * MiB);
 
     hp = hmalloc(hsz * MiB);
     memset(hp, 'x', hsz * MiB);
 
+    system("numactl -H");
     printf("%ld MiB is allocated by malloc().\n", sz);
     printf("%ld MiB is allocated by hmalloc().\n", hsz);
     printf("Press enter to stop.\n");

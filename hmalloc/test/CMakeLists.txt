@@ -21,8 +21,6 @@ endif()
 add_custom_target(
   catch2 ALL
   COMMAND
-    curl -s -k -R -C - -o ${CMAKE_CURRENT_SOURCE_DIR}/catch.hpp
-    https://raw.githubusercontent.com/catchorg/Catch2/v2.13.10/single_include/catch2/catch.hpp
   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
   COMMENT "Fetch catch.hpp")
 
@@ -35,5 +33,5 @@ add_executable(example example.c)
 set(CMAKE_INSTALL_RPATH "..")
 set(CMAKE_BUILD_WITH_INSTALL_RPATH True)
 
-target_link_libraries(hmalloc_test PUBLIC ${HMALLOC} ${NUMA})
+target_link_libraries(hmalloc_test PUBLIC ${HMALLOC} numa)
 target_link_libraries(example PUBLIC ${HMALLOC})

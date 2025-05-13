@@ -92,10 +92,10 @@ __attribute__((constructor)) void hmalloc_init(void) {
 
 void *hmalloc(size_t size) {
     void *ptr;
-
+    printf("hmalloc: use_jemalloc is %d\n", use_jemalloc);
     if (!use_jemalloc)
         return malloc(size);
-
+    
     ptr = mallocx(size, MALLOCX_ARENA(arena_index) | MALLOCX_TCACHE_NONE);
     if (errno == ENOMEM)
         return NULL;
