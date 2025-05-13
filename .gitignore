@@ -77,3 +77,7 @@ pythonenv*
 /clang/utils/analyzer/projects/*/RefScanBuildResults
 # automodapi puts generated documentation files here.
 /lldb/docs/python_api/
+/hmalloc/test/CMakefiles
+/hmalloc/test/example
+/hmalloc/test/CMakeCache.txt
+/hmalloc/test/hmalloc_test
