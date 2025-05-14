@@ -108,12 +108,18 @@ extern "C" LLVM_ATTRIBUTE_WEAK PassPluginLibraryInfo llvmGetPassPluginInfo() {
         PB.registerPipelineParsingCallback(
             [](StringRef Name, ModulePassManager &MPM,
                ArrayRef<PassBuilder::PipelineElement>) {
-              if (Name == "heap-optimizer") {
-                errs()<<"Name == heap-optimizer";
-                MPM.addPass(HeapAllocOptimizer());
-                return true;
-              }
-              return false;
+              // char *env = getenv("CLANG_MODE");
+              // if(!env && 0 == strcmp(env, "OPTIMIZE")){
+                // MPM.addPass(HeapAllocOptimizer());
+                // return true;
+              // }else if(env || (!env && strcmp(env, "AOTU"))){
+                // if (Name == "heap-optimizer") {
+                    errs()<<"addPass(HeapAllocOptimizer())";
+                    MPM.addPass(HeapAllocOptimizer());
+                    return true;
+                // }
+              // }
+              // return false;
             });
       }};
 }

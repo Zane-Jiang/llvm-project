@@ -1,0 +1,1 @@
+/usr/local/bin/clang;Clang;21.0.0;-fopenmp ;;1;

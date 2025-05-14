@@ -177,12 +177,19 @@ extern "C" LLVM_ATTRIBUTE_WEAK PassPluginLibraryInfo llvmGetPassPluginInfo() {
       [](PassBuilder &PB) {
         PB.registerPipelineParsingCallback(
             [](StringRef Name, ModulePassManager &MPM,
-               ArrayRef<PassBuilder::PipelineElement>) {
-              if (Name == "heap-profiler") {
-                MPM.addPass(HeapProfiler());
-                return true;
-              }
-              return false;
+              ArrayRef<PassBuilder::PipelineElement>) {
+              // char *env = getenv("CLANG_MODE");
+              // if(!env && 0 == strcmp(env, "INSTRUMENT")){
+                errs()<<"addPass(HeapProfiler())";
+                // MPM.addPass(HeapProfiler());
+                // return true;
+              // }else if(env || (!env && strcmp(env, "AOTU"))){
+                // if (Name == "heap-profiler") {
+                    MPM.addPass(HeapProfiler());
+                    return true;
+                // }
+              // }
+              // return false;
             });
       }};
 }

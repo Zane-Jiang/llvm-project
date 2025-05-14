@@ -1,0 +1,2 @@
+/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/edit_cache.dir
+/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/rebuild_cache.dir

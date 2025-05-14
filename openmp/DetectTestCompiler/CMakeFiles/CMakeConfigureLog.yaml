@@ -1,0 +1,2124 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/CMakeDetermineSystem.cmake:205 (message)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      The system is: Linux - 6.12.0+ - x86_64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/usr/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/usr/share/cmake-3.31/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: /usr/local/bin/clang 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+      
+      The C compiler identification is Clang, found in:
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/3.31.6/CompilerIdC/a.out
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/usr/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/usr/share/cmake-3.31/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: /usr/local/bin/clang++ 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+      
+      The CXX compiler identification is Clang, found in:
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/3.31.6/CompilerIdCXX/a.out
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:74 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-KxZgSM"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-KxZgSM"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-KxZgSM'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_00314/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_00314.dir/build.make CMakeFiles/cmTC_00314.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-KxZgSM'
+        Building C object CMakeFiles/cmTC_00314.dir/CMakeCCompilerABI.c.o
+        /usr/local/bin/clang   -v -MD -MT CMakeFiles/cmTC_00314.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_00314.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_00314.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.31/Modules/CMakeCCompilerABI.c
+        clang version 21.0.0git (https://github.com/Zane-Jiang/llvm-project.git 5d2af0f46eb96c9b19ab2575884c529458feff58)
+        Target: x86_64-unknown-linux-gnu
+        Thread model: posix
+        InstalledDir: /usr/local/bin
+        Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/14
+        Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/14
+        Candidate multilib: .;@m64
+        Selected multilib: .;@m64
+         (in-process)
+         "/usr/local/bin/clang-21" -cc1 -triple x86_64-unknown-linux-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-KxZgSM -v -fcoverage-compilation-dir=/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-KxZgSM -resource-dir /usr/local/lib/clang/21 -dependency-file CMakeFiles/cmTC_00314.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_00314.dir/CMakeCCompilerABI.c.o -sys-header-deps -internal-isystem /usr/local/lib/clang/21/include -internal-isystem /usr/local/include -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/14/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -ferror-limit 19 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_00314.dir/CMakeCCompilerABI.c.o -x c /usr/share/cmake-3.31/Modules/CMakeCCompilerABI.c
+        clang -cc1 version 21.0.0git based upon LLVM 21.0.0git default target x86_64-unknown-linux-gnu
+        ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/14/../../../../x86_64-linux-gnu/include"
+        ignoring nonexistent directory "/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /usr/local/lib/clang/21/include
+         /usr/local/include
+         /usr/include/x86_64-linux-gnu
+         /usr/include
+        End of search list.
+        Linking C executable cmTC_00314
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_00314.dir/link.txt --verbose=1
+        clang version 21.0.0git (https://github.com/Zane-Jiang/llvm-project.git 5d2af0f46eb96c9b19ab2575884c529458feff58)
+        Target: x86_64-unknown-linux-gnu
+        Thread model: posix
+        InstalledDir: /usr/local/bin
+        Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/14
+        Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/14
+        Candidate multilib: .;@m64
+        Selected multilib: .;@m64
+         "/usr/bin/ld" --hash-style=gnu --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_00314 /lib/x86_64-linux-gnu/Scrt1.o /lib/x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/14/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/14 -L/usr/lib/gcc/x86_64-linux-gnu/14/../../../../lib64 -L/lib/x86_64-linux-gnu -L/lib/../lib64 -L/usr/lib/x86_64-linux-gnu -L/usr/lib64 -L/lib -L/usr/lib -v CMakeFiles/cmTC_00314.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/14/crtendS.o /lib/x86_64-linux-gnu/crtn.o
+        GNU ld (GNU Binutils for Debian) 2.44
+        /usr/local/bin/clang  -v -Wl,-v CMakeFiles/cmTC_00314.dir/CMakeCCompilerABI.c.o -o cmTC_00314
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-KxZgSM'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:182 (message)"
+      - "/usr/share/cmake-3.31/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed C implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/usr/local/lib/clang/21/include]
+          add: [/usr/local/include]
+          add: [/usr/include/x86_64-linux-gnu]
+          add: [/usr/include]
+        end of search list found
+        collapse include dir [/usr/local/lib/clang/21/include] ==> [/usr/local/lib/clang/21/include]
+        collapse include dir [/usr/local/include] ==> [/usr/local/include]
+        collapse include dir [/usr/include/x86_64-linux-gnu] ==> [/usr/include/x86_64-linux-gnu]
+        collapse include dir [/usr/include] ==> [/usr/include]
+        implicit include dirs: [/usr/local/lib/clang/21/include;/usr/local/include;/usr/include/x86_64-linux-gnu;/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:218 (message)"
+      - "/usr/share/cmake-3.31/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?))("|,| |$)]
+        ignore line: [Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-KxZgSM']
+        ignore line: []
+        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_00314/fast]
+        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_00314.dir/build.make CMakeFiles/cmTC_00314.dir/build]
+        ignore line: [gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-KxZgSM']
+        ignore line: [Building C object CMakeFiles/cmTC_00314.dir/CMakeCCompilerABI.c.o]
+        ignore line: [/usr/local/bin/clang   -v -MD -MT CMakeFiles/cmTC_00314.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_00314.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_00314.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.31/Modules/CMakeCCompilerABI.c]
+        ignore line: [clang version 21.0.0git (https://github.com/Zane-Jiang/llvm-project.git 5d2af0f46eb96c9b19ab2575884c529458feff58)]
+        ignore line: [Target: x86_64-unknown-linux-gnu]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /usr/local/bin]
+        ignore line: [Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/14]
+        ignore line: [Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/14]
+        ignore line: [Candidate multilib: .]
+        ignore line: [@m64]
+        ignore line: [Selected multilib: .]
+        ignore line: [@m64]
+        ignore line: [ (in-process)]
+        ignore line: [ "/usr/local/bin/clang-21" -cc1 -triple x86_64-unknown-linux-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-KxZgSM -v -fcoverage-compilation-dir=/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-KxZgSM -resource-dir /usr/local/lib/clang/21 -dependency-file CMakeFiles/cmTC_00314.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_00314.dir/CMakeCCompilerABI.c.o -sys-header-deps -internal-isystem /usr/local/lib/clang/21/include -internal-isystem /usr/local/include -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/14/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -ferror-limit 19 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_00314.dir/CMakeCCompilerABI.c.o -x c /usr/share/cmake-3.31/Modules/CMakeCCompilerABI.c]
+        ignore line: [clang -cc1 version 21.0.0git based upon LLVM 21.0.0git default target x86_64-unknown-linux-gnu]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/14/../../../../x86_64-linux-gnu/include"]
+        ignore line: [ignoring nonexistent directory "/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /usr/local/lib/clang/21/include]
+        ignore line: [ /usr/local/include]
+        ignore line: [ /usr/include/x86_64-linux-gnu]
+        ignore line: [ /usr/include]
+        ignore line: [End of search list.]
+        ignore line: [Linking C executable cmTC_00314]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_00314.dir/link.txt --verbose=1]
+        ignore line: [clang version 21.0.0git (https://github.com/Zane-Jiang/llvm-project.git 5d2af0f46eb96c9b19ab2575884c529458feff58)]
+        ignore line: [Target: x86_64-unknown-linux-gnu]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /usr/local/bin]
+        ignore line: [Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/14]
+        ignore line: [Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/14]
+        ignore line: [Candidate multilib: .]
+        ignore line: [@m64]
+        ignore line: [Selected multilib: .]
+        ignore line: [@m64]
+        link line: [ "/usr/bin/ld" --hash-style=gnu --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_00314 /lib/x86_64-linux-gnu/Scrt1.o /lib/x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/14/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/14 -L/usr/lib/gcc/x86_64-linux-gnu/14/../../../../lib64 -L/lib/x86_64-linux-gnu -L/lib/../lib64 -L/usr/lib/x86_64-linux-gnu -L/usr/lib64 -L/lib -L/usr/lib -v CMakeFiles/cmTC_00314.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/14/crtendS.o /lib/x86_64-linux-gnu/crtn.o]
+          arg [/usr/bin/ld] ==> ignore
+          arg [--hash-style=gnu] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [-m] ==> ignore
+          arg [elf_x86_64] ==> ignore
+          arg [-pie] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_00314] ==> ignore
+          arg [/lib/x86_64-linux-gnu/Scrt1.o] ==> obj [/lib/x86_64-linux-gnu/Scrt1.o]
+          arg [/lib/x86_64-linux-gnu/crti.o] ==> obj [/lib/x86_64-linux-gnu/crti.o]
+          arg [/usr/lib/gcc/x86_64-linux-gnu/14/crtbeginS.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/14/crtbeginS.o]
+          arg [-L/usr/lib/gcc/x86_64-linux-gnu/14] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/14]
+          arg [-L/usr/lib/gcc/x86_64-linux-gnu/14/../../../../lib64] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/14/../../../../lib64]
+          arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
+          arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
+          arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
+          arg [-L/usr/lib64] ==> dir [/usr/lib64]
+          arg [-L/lib] ==> dir [/lib]
+          arg [-L/usr/lib] ==> dir [/usr/lib]
+          arg [-v] ==> ignore
+          arg [CMakeFiles/cmTC_00314.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [-lgcc] ==> lib [gcc]
+          arg [--as-needed] ==> ignore
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [--no-as-needed] ==> ignore
+          arg [-lc] ==> lib [c]
+          arg [-lgcc] ==> lib [gcc]
+          arg [--as-needed] ==> ignore
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [--no-as-needed] ==> ignore
+          arg [/usr/lib/gcc/x86_64-linux-gnu/14/crtendS.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/14/crtendS.o]
+          arg [/lib/x86_64-linux-gnu/crtn.o] ==> obj [/lib/x86_64-linux-gnu/crtn.o]
+        linker tool for 'C': /usr/bin/ld
+        collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/14] ==> [/usr/lib/gcc/x86_64-linux-gnu/14]
+        collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/14/../../../../lib64] ==> [/usr/lib64]
+        collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
+        collapse library dir [/lib/../lib64] ==> [/lib64]
+        collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+        collapse library dir [/usr/lib64] ==> [/usr/lib64]
+        collapse library dir [/lib] ==> [/lib]
+        collapse library dir [/usr/lib] ==> [/usr/lib]
+        implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
+        implicit objs: [/lib/x86_64-linux-gnu/Scrt1.o;/lib/x86_64-linux-gnu/crti.o;/usr/lib/gcc/x86_64-linux-gnu/14/crtbeginS.o;/usr/lib/gcc/x86_64-linux-gnu/14/crtendS.o;/lib/x86_64-linux-gnu/crtn.o]
+        implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/14;/usr/lib64;/lib/x86_64-linux-gnu;/lib64;/usr/lib/x86_64-linux-gnu;/lib;/usr/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "/usr/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:255 (cmake_determine_linker_id)"
+      - "/usr/share/cmake-3.31/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the C compiler's linker: "/usr/bin/ld" "-v"
+      GNU ld (GNU Binutils for Debian) 2.44
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:74 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-UqvjUN"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-UqvjUN"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-UqvjUN'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_84589/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_84589.dir/build.make CMakeFiles/cmTC_84589.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-UqvjUN'
+        Building CXX object CMakeFiles/cmTC_84589.dir/CMakeCXXCompilerABI.cpp.o
+        /usr/local/bin/clang++   -v -MD -MT CMakeFiles/cmTC_84589.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_84589.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_84589.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.31/Modules/CMakeCXXCompilerABI.cpp
+        clang version 21.0.0git (https://github.com/Zane-Jiang/llvm-project.git 5d2af0f46eb96c9b19ab2575884c529458feff58)
+        Target: x86_64-unknown-linux-gnu
+        Thread model: posix
+        InstalledDir: /usr/local/bin
+        Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/14
+        Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/14
+        Candidate multilib: .;@m64
+        Selected multilib: .;@m64
+         (in-process)
+         "/usr/local/bin/clang-21" -cc1 -triple x86_64-unknown-linux-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-UqvjUN -v -fcoverage-compilation-dir=/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-UqvjUN -resource-dir /usr/local/lib/clang/21 -dependency-file CMakeFiles/cmTC_84589.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_84589.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/x86_64-linux-gnu/c++/14 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/backward -internal-isystem /usr/local/lib/clang/21/include -internal-isystem /usr/local/include -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/14/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -ferror-limit 19 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_84589.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/share/cmake-3.31/Modules/CMakeCXXCompilerABI.cpp
+        clang -cc1 version 21.0.0git based upon LLVM 21.0.0git default target x86_64-unknown-linux-gnu
+        ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/14/../../../../x86_64-linux-gnu/include"
+        ignoring nonexistent directory "/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14
+         /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/x86_64-linux-gnu/c++/14
+         /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/backward
+         /usr/local/lib/clang/21/include
+         /usr/local/include
+         /usr/include/x86_64-linux-gnu
+         /usr/include
+        End of search list.
+        Linking CXX executable cmTC_84589
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_84589.dir/link.txt --verbose=1
+        clang version 21.0.0git (https://github.com/Zane-Jiang/llvm-project.git 5d2af0f46eb96c9b19ab2575884c529458feff58)
+        Target: x86_64-unknown-linux-gnu
+        Thread model: posix
+        InstalledDir: /usr/local/bin
+        Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/14
+        Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/14
+        Candidate multilib: .;@m64
+        Selected multilib: .;@m64
+         "/usr/bin/ld" --hash-style=gnu --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_84589 /lib/x86_64-linux-gnu/Scrt1.o /lib/x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/14/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/14 -L/usr/lib/gcc/x86_64-linux-gnu/14/../../../../lib64 -L/lib/x86_64-linux-gnu -L/lib/../lib64 -L/usr/lib/x86_64-linux-gnu -L/usr/lib64 -L/lib -L/usr/lib -v CMakeFiles/cmTC_84589.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/14/crtendS.o /lib/x86_64-linux-gnu/crtn.o
+        GNU ld (GNU Binutils for Debian) 2.44
+        /usr/local/bin/clang++  -v -Wl,-v CMakeFiles/cmTC_84589.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_84589
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-UqvjUN'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:182 (message)"
+      - "/usr/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14]
+          add: [/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/x86_64-linux-gnu/c++/14]
+          add: [/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/backward]
+          add: [/usr/local/lib/clang/21/include]
+          add: [/usr/local/include]
+          add: [/usr/include/x86_64-linux-gnu]
+          add: [/usr/include]
+        end of search list found
+        collapse include dir [/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14] ==> [/usr/include/c++/14]
+        collapse include dir [/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/x86_64-linux-gnu/c++/14] ==> [/usr/include/x86_64-linux-gnu/c++/14]
+        collapse include dir [/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/backward] ==> [/usr/include/c++/14/backward]
+        collapse include dir [/usr/local/lib/clang/21/include] ==> [/usr/local/lib/clang/21/include]
+        collapse include dir [/usr/local/include] ==> [/usr/local/include]
+        collapse include dir [/usr/include/x86_64-linux-gnu] ==> [/usr/include/x86_64-linux-gnu]
+        collapse include dir [/usr/include] ==> [/usr/include]
+        implicit include dirs: [/usr/include/c++/14;/usr/include/x86_64-linux-gnu/c++/14;/usr/include/c++/14/backward;/usr/local/lib/clang/21/include;/usr/local/include;/usr/include/x86_64-linux-gnu;/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:218 (message)"
+      - "/usr/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?))("|,| |$)]
+        ignore line: [Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-UqvjUN']
+        ignore line: []
+        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_84589/fast]
+        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_84589.dir/build.make CMakeFiles/cmTC_84589.dir/build]
+        ignore line: [gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-UqvjUN']
+        ignore line: [Building CXX object CMakeFiles/cmTC_84589.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/usr/local/bin/clang++   -v -MD -MT CMakeFiles/cmTC_84589.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_84589.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_84589.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.31/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [clang version 21.0.0git (https://github.com/Zane-Jiang/llvm-project.git 5d2af0f46eb96c9b19ab2575884c529458feff58)]
+        ignore line: [Target: x86_64-unknown-linux-gnu]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /usr/local/bin]
+        ignore line: [Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/14]
+        ignore line: [Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/14]
+        ignore line: [Candidate multilib: .]
+        ignore line: [@m64]
+        ignore line: [Selected multilib: .]
+        ignore line: [@m64]
+        ignore line: [ (in-process)]
+        ignore line: [ "/usr/local/bin/clang-21" -cc1 -triple x86_64-unknown-linux-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-UqvjUN -v -fcoverage-compilation-dir=/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-UqvjUN -resource-dir /usr/local/lib/clang/21 -dependency-file CMakeFiles/cmTC_84589.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_84589.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/x86_64-linux-gnu/c++/14 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/backward -internal-isystem /usr/local/lib/clang/21/include -internal-isystem /usr/local/include -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/14/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -ferror-limit 19 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_84589.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/share/cmake-3.31/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [clang -cc1 version 21.0.0git based upon LLVM 21.0.0git default target x86_64-unknown-linux-gnu]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/14/../../../../x86_64-linux-gnu/include"]
+        ignore line: [ignoring nonexistent directory "/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14]
+        ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/x86_64-linux-gnu/c++/14]
+        ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/backward]
+        ignore line: [ /usr/local/lib/clang/21/include]
+        ignore line: [ /usr/local/include]
+        ignore line: [ /usr/include/x86_64-linux-gnu]
+        ignore line: [ /usr/include]
+        ignore line: [End of search list.]
+        ignore line: [Linking CXX executable cmTC_84589]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_84589.dir/link.txt --verbose=1]
+        ignore line: [clang version 21.0.0git (https://github.com/Zane-Jiang/llvm-project.git 5d2af0f46eb96c9b19ab2575884c529458feff58)]
+        ignore line: [Target: x86_64-unknown-linux-gnu]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /usr/local/bin]
+        ignore line: [Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/14]
+        ignore line: [Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/14]
+        ignore line: [Candidate multilib: .]
+        ignore line: [@m64]
+        ignore line: [Selected multilib: .]
+        ignore line: [@m64]
+        link line: [ "/usr/bin/ld" --hash-style=gnu --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_84589 /lib/x86_64-linux-gnu/Scrt1.o /lib/x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/14/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/14 -L/usr/lib/gcc/x86_64-linux-gnu/14/../../../../lib64 -L/lib/x86_64-linux-gnu -L/lib/../lib64 -L/usr/lib/x86_64-linux-gnu -L/usr/lib64 -L/lib -L/usr/lib -v CMakeFiles/cmTC_84589.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/14/crtendS.o /lib/x86_64-linux-gnu/crtn.o]
+          arg [/usr/bin/ld] ==> ignore
+          arg [--hash-style=gnu] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [-m] ==> ignore
+          arg [elf_x86_64] ==> ignore
+          arg [-pie] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_84589] ==> ignore
+          arg [/lib/x86_64-linux-gnu/Scrt1.o] ==> obj [/lib/x86_64-linux-gnu/Scrt1.o]
+          arg [/lib/x86_64-linux-gnu/crti.o] ==> obj [/lib/x86_64-linux-gnu/crti.o]
+          arg [/usr/lib/gcc/x86_64-linux-gnu/14/crtbeginS.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/14/crtbeginS.o]
+          arg [-L/usr/lib/gcc/x86_64-linux-gnu/14] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/14]
+          arg [-L/usr/lib/gcc/x86_64-linux-gnu/14/../../../../lib64] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/14/../../../../lib64]
+          arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
+          arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
+          arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
+          arg [-L/usr/lib64] ==> dir [/usr/lib64]
+          arg [-L/lib] ==> dir [/lib]
+          arg [-L/usr/lib] ==> dir [/usr/lib]
+          arg [-v] ==> ignore
+          arg [CMakeFiles/cmTC_84589.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [-lstdc++] ==> lib [stdc++]
+          arg [-lm] ==> lib [m]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lc] ==> lib [c]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [/usr/lib/gcc/x86_64-linux-gnu/14/crtendS.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/14/crtendS.o]
+          arg [/lib/x86_64-linux-gnu/crtn.o] ==> obj [/lib/x86_64-linux-gnu/crtn.o]
+        linker tool for 'CXX': /usr/bin/ld
+        collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/14] ==> [/usr/lib/gcc/x86_64-linux-gnu/14]
+        collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/14/../../../../lib64] ==> [/usr/lib64]
+        collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
+        collapse library dir [/lib/../lib64] ==> [/lib64]
+        collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+        collapse library dir [/usr/lib64] ==> [/usr/lib64]
+        collapse library dir [/lib] ==> [/lib]
+        collapse library dir [/usr/lib] ==> [/usr/lib]
+        implicit libs: [stdc++;m;gcc_s;gcc;c;gcc_s;gcc]
+        implicit objs: [/lib/x86_64-linux-gnu/Scrt1.o;/lib/x86_64-linux-gnu/crti.o;/usr/lib/gcc/x86_64-linux-gnu/14/crtbeginS.o;/usr/lib/gcc/x86_64-linux-gnu/14/crtendS.o;/lib/x86_64-linux-gnu/crtn.o]
+        implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/14;/usr/lib64;/lib/x86_64-linux-gnu;/lib64;/usr/lib/x86_64-linux-gnu;/lib;/usr/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "/usr/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:255 (cmake_determine_linker_id)"
+      - "/usr/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the CXX compiler's linker: "/usr/bin/ld" "-v"
+      GNU ld (GNU Binutils for Debian) 2.44
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting C OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Z9tIGF"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Z9tIGF"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_C_fopenmplibomp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Z9tIGF'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_55765/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_55765.dir/build.make CMakeFiles/cmTC_55765.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Z9tIGF'
+        Building C object CMakeFiles/cmTC_55765.dir/OpenMPTryFlag.c.o
+        /usr/local/bin/clang   -fopenmp=libomp -MD -MT CMakeFiles/cmTC_55765.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_55765.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_55765.dir/OpenMPTryFlag.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Z9tIGF/OpenMPTryFlag.c
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Z9tIGF/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_55765.dir/build.make:82: CMakeFiles/cmTC_55765.dir/OpenMPTryFlag.c.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Z9tIGF'
+        gmake: *** [Makefile:134: cmTC_55765/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting C OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-3Yu7dB"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-3Yu7dB"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_C_fopenmplibiomp5"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-3Yu7dB'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_3847e/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_3847e.dir/build.make CMakeFiles/cmTC_3847e.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-3Yu7dB'
+        Building C object CMakeFiles/cmTC_3847e.dir/OpenMPTryFlag.c.o
+        /usr/local/bin/clang   -fopenmp=libiomp5 -MD -MT CMakeFiles/cmTC_3847e.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_3847e.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_3847e.dir/OpenMPTryFlag.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-3Yu7dB/OpenMPTryFlag.c
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-3Yu7dB/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_3847e.dir/build.make:82: CMakeFiles/cmTC_3847e.dir/OpenMPTryFlag.c.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-3Yu7dB'
+        gmake: *** [Makefile:134: cmTC_3847e/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting C OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-pUlzru"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-pUlzru"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_C_fopenmp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-pUlzru'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_869ca/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_869ca.dir/build.make CMakeFiles/cmTC_869ca.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-pUlzru'
+        Building C object CMakeFiles/cmTC_869ca.dir/OpenMPTryFlag.c.o
+        /usr/local/bin/clang   -fopenmp -MD -MT CMakeFiles/cmTC_869ca.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_869ca.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_869ca.dir/OpenMPTryFlag.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-pUlzru/OpenMPTryFlag.c
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-pUlzru/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_869ca.dir/build.make:82: CMakeFiles/cmTC_869ca.dir/OpenMPTryFlag.c.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-pUlzru'
+        gmake: *** [Makefile:134: cmTC_869ca/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting C OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-qw65Pp"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-qw65Pp"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_C_Xclang fopenmp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-qw65Pp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_5fc6d/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_5fc6d.dir/build.make CMakeFiles/cmTC_5fc6d.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-qw65Pp'
+        Building C object CMakeFiles/cmTC_5fc6d.dir/OpenMPTryFlag.c.o
+        /usr/local/bin/clang   -Xclang -fopenmp -MD -MT CMakeFiles/cmTC_5fc6d.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_5fc6d.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_5fc6d.dir/OpenMPTryFlag.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-qw65Pp/OpenMPTryFlag.c
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-qw65Pp/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_5fc6d.dir/build.make:82: CMakeFiles/cmTC_5fc6d.dir/OpenMPTryFlag.c.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-qw65Pp'
+        gmake: *** [Makefile:134: cmTC_5fc6d/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting CXX OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-4er0KX"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-4er0KX"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_CXX_fopenmplibomp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-4er0KX'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_dfdac/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_dfdac.dir/build.make CMakeFiles/cmTC_dfdac.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-4er0KX'
+        Building CXX object CMakeFiles/cmTC_dfdac.dir/OpenMPTryFlag.cpp.o
+        /usr/local/bin/clang++   -fopenmp=libomp -MD -MT CMakeFiles/cmTC_dfdac.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_dfdac.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_dfdac.dir/OpenMPTryFlag.cpp.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-4er0KX/OpenMPTryFlag.cpp
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-4er0KX/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_dfdac.dir/build.make:82: CMakeFiles/cmTC_dfdac.dir/OpenMPTryFlag.cpp.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-4er0KX'
+        gmake: *** [Makefile:134: cmTC_dfdac/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting CXX OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-7ssW5V"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-7ssW5V"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_CXX_fopenmplibiomp5"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-7ssW5V'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_625f7/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_625f7.dir/build.make CMakeFiles/cmTC_625f7.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-7ssW5V'
+        Building CXX object CMakeFiles/cmTC_625f7.dir/OpenMPTryFlag.cpp.o
+        /usr/local/bin/clang++   -fopenmp=libiomp5 -MD -MT CMakeFiles/cmTC_625f7.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_625f7.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_625f7.dir/OpenMPTryFlag.cpp.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-7ssW5V/OpenMPTryFlag.cpp
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-7ssW5V/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_625f7.dir/build.make:82: CMakeFiles/cmTC_625f7.dir/OpenMPTryFlag.cpp.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-7ssW5V'
+        gmake: *** [Makefile:134: cmTC_625f7/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting CXX OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-EF6MTd"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-EF6MTd"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_CXX_fopenmp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-EF6MTd'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_4d912/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_4d912.dir/build.make CMakeFiles/cmTC_4d912.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-EF6MTd'
+        Building CXX object CMakeFiles/cmTC_4d912.dir/OpenMPTryFlag.cpp.o
+        /usr/local/bin/clang++   -fopenmp -MD -MT CMakeFiles/cmTC_4d912.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_4d912.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_4d912.dir/OpenMPTryFlag.cpp.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-EF6MTd/OpenMPTryFlag.cpp
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-EF6MTd/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_4d912.dir/build.make:82: CMakeFiles/cmTC_4d912.dir/OpenMPTryFlag.cpp.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-EF6MTd'
+        gmake: *** [Makefile:134: cmTC_4d912/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting CXX OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-CHWF4W"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-CHWF4W"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_CXX_Xclang fopenmp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-CHWF4W'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_d2eb8/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_d2eb8.dir/build.make CMakeFiles/cmTC_d2eb8.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-CHWF4W'
+        Building CXX object CMakeFiles/cmTC_d2eb8.dir/OpenMPTryFlag.cpp.o
+        /usr/local/bin/clang++   -Xclang -fopenmp -MD -MT CMakeFiles/cmTC_d2eb8.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_d2eb8.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_d2eb8.dir/OpenMPTryFlag.cpp.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-CHWF4W/OpenMPTryFlag.cpp
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-CHWF4W/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_d2eb8.dir/build.make:82: CMakeFiles/cmTC_d2eb8.dir/OpenMPTryFlag.cpp.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-CHWF4W'
+        gmake: *** [Makefile:134: cmTC_d2eb8/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/CheckCSourceCompiles.cmake:58 (cmake_check_source_compiles)"
+      - "/usr/share/cmake-3.31/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "/usr/share/cmake-3.31/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "CMakeLists.txt:28 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-18j1Me"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-18j1Me"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-18j1Me'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_6b6b5/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_6b6b5.dir/build.make CMakeFiles/cmTC_6b6b5.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-18j1Me'
+        Building C object CMakeFiles/cmTC_6b6b5.dir/src.c.o
+        /usr/local/bin/clang -DCMAKE_HAVE_LIBC_PTHREAD   -MD -MT CMakeFiles/cmTC_6b6b5.dir/src.c.o -MF CMakeFiles/cmTC_6b6b5.dir/src.c.o.d -o CMakeFiles/cmTC_6b6b5.dir/src.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-18j1Me/src.c
+        Linking C executable cmTC_6b6b5
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6b6b5.dir/link.txt --verbose=1
+        /usr/local/bin/clang CMakeFiles/cmTC_6b6b5.dir/src.c.o -o cmTC_6b6b5
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-18j1Me'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/usr/share/cmake-3.31/Modules/CheckCCompilerFlag.cmake:56 (cmake_check_compiler_flag)"
+      - "CMakeLists.txt:33 (check_c_compiler_flag)"
+    checks:
+      - "Performing Test C_HAS_OMIT_FRAME_POINTER"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-FaSZIY"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-FaSZIY"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "C_HAS_OMIT_FRAME_POINTER"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-FaSZIY'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_2573f/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_2573f.dir/build.make CMakeFiles/cmTC_2573f.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-FaSZIY'
+        Building C object CMakeFiles/cmTC_2573f.dir/src.c.o
+        /usr/local/bin/clang -DC_HAS_OMIT_FRAME_POINTER  -fno-omit-frame-pointer -MD -MT CMakeFiles/cmTC_2573f.dir/src.c.o -MF CMakeFiles/cmTC_2573f.dir/src.c.o.d -o CMakeFiles/cmTC_2573f.dir/src.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-FaSZIY/src.c
+        Linking C executable cmTC_2573f
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2573f.dir/link.txt --verbose=1
+        /usr/local/bin/clang CMakeFiles/cmTC_2573f.dir/src.c.o -o cmTC_2573f
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-FaSZIY'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/usr/share/cmake-3.31/Modules/CheckCXXCompilerFlag.cmake:55 (cmake_check_compiler_flag)"
+      - "CMakeLists.txt:34 (check_cxx_compiler_flag)"
+    checks:
+      - "Performing Test CXX_HAS_OMIT_FRAME_POINTER"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-nPvH7t"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-nPvH7t"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CXX_HAS_OMIT_FRAME_POINTER"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-nPvH7t'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_ef68f/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_ef68f.dir/build.make CMakeFiles/cmTC_ef68f.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-nPvH7t'
+        Building CXX object CMakeFiles/cmTC_ef68f.dir/src.cxx.o
+        /usr/local/bin/clang++ -DCXX_HAS_OMIT_FRAME_POINTER  -fno-omit-frame-pointer -MD -MT CMakeFiles/cmTC_ef68f.dir/src.cxx.o -MF CMakeFiles/cmTC_ef68f.dir/src.cxx.o.d -o CMakeFiles/cmTC_ef68f.dir/src.cxx.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-nPvH7t/src.cxx
+        Linking CXX executable cmTC_ef68f
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ef68f.dir/link.txt --verbose=1
+        /usr/local/bin/clang++ CMakeFiles/cmTC_ef68f.dir/src.cxx.o -o cmTC_ef68f
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-nPvH7t'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/usr/share/cmake-3.31/Modules/CheckCCompilerFlag.cmake:56 (cmake_check_compiler_flag)"
+      - "CMakeLists.txt:38 (check_c_compiler_flag)"
+    checks:
+      - "Performing Test C_HAS_TSAN_FLAG"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-fWkTl2"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-fWkTl2"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "C_HAS_TSAN_FLAG"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-fWkTl2'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_73a7c/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_73a7c.dir/build.make CMakeFiles/cmTC_73a7c.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-fWkTl2'
+        Building C object CMakeFiles/cmTC_73a7c.dir/src.c.o
+        /usr/local/bin/clang -DC_HAS_TSAN_FLAG  -fsanitize=thread -MD -MT CMakeFiles/cmTC_73a7c.dir/src.c.o -MF CMakeFiles/cmTC_73a7c.dir/src.c.o.d -o CMakeFiles/cmTC_73a7c.dir/src.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-fWkTl2/src.c
+        Linking C executable cmTC_73a7c
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_73a7c.dir/link.txt --verbose=1
+        /usr/bin/ld: cannot find /usr/local/lib/clang/21/lib/x86_64-unknown-linux-gnu/libclang_rt.tsan.a: No such file or directory
+        clang: error: linker command failed with exit code 1 (use -v to see invocation)
+        /usr/local/bin/clang  -fsanitize=thread CMakeFiles/cmTC_73a7c.dir/src.c.o -o cmTC_73a7c
+        gmake[1]: *** [CMakeFiles/cmTC_73a7c.dir/build.make:103: cmTC_73a7c] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-fWkTl2'
+        gmake: *** [Makefile:134: cmTC_73a7c/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/usr/share/cmake-3.31/Modules/CheckCXXCompilerFlag.cmake:55 (cmake_check_compiler_flag)"
+      - "CMakeLists.txt:39 (check_cxx_compiler_flag)"
+    checks:
+      - "Performing Test CXX_HAS_TSAN_FLAG"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-yF0hPA"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-yF0hPA"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CXX_HAS_TSAN_FLAG"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-yF0hPA'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_120a0/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_120a0.dir/build.make CMakeFiles/cmTC_120a0.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-yF0hPA'
+        Building CXX object CMakeFiles/cmTC_120a0.dir/src.cxx.o
+        /usr/local/bin/clang++ -DCXX_HAS_TSAN_FLAG  -fsanitize=thread -MD -MT CMakeFiles/cmTC_120a0.dir/src.cxx.o -MF CMakeFiles/cmTC_120a0.dir/src.cxx.o.d -o CMakeFiles/cmTC_120a0.dir/src.cxx.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-yF0hPA/src.cxx
+        Linking CXX executable cmTC_120a0
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_120a0.dir/link.txt --verbose=1
+        /usr/bin/ld: cannot find /usr/local/lib/clang/21/lib/x86_64-unknown-linux-gnu/libclang_rt.tsan.a: No such file or directory
+        /usr/bin/ld: cannot find /usr/local/lib/clang/21/lib/x86_64-unknown-linux-gnu/libclang_rt.tsan_cxx.a: No such file or directory
+        clang++: error: linker command failed with exit code 1 (use -v to see invocation)
+        /usr/local/bin/clang++  -fsanitize=thread CMakeFiles/cmTC_120a0.dir/src.cxx.o -o cmTC_120a0
+        gmake[1]: *** [CMakeFiles/cmTC_120a0.dir/build.make:103: cmTC_120a0] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-yF0hPA'
+        gmake: *** [Makefile:134: cmTC_120a0/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/CheckIncludeFileCXX.cmake:98 (try_compile)"
+      - "CMakeLists.txt:43 (check_include_file_cxx)"
+    checks:
+      - "Looking for C++ include omp.h"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-edGCYI"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-edGCYI"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CXX_HAS_OMP_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-edGCYI'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_43e85/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_43e85.dir/build.make CMakeFiles/cmTC_43e85.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-edGCYI'
+        Building CXX object CMakeFiles/cmTC_43e85.dir/CheckIncludeFile.cxx.o
+        /usr/local/bin/clang++    -MD -MT CMakeFiles/cmTC_43e85.dir/CheckIncludeFile.cxx.o -MF CMakeFiles/cmTC_43e85.dir/CheckIncludeFile.cxx.o.d -o CMakeFiles/cmTC_43e85.dir/CheckIncludeFile.cxx.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-edGCYI/CheckIncludeFile.cxx
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-edGCYI/CheckIncludeFile.cxx:1:10: fatal error: 'omp.h' file not found
+            1 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_43e85.dir/build.make:82: CMakeFiles/cmTC_43e85.dir/CheckIncludeFile.cxx.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-edGCYI'
+        gmake: *** [Makefile:134: cmTC_43e85/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/CheckIncludeFile.cmake:99 (try_compile)"
+      - "CMakeLists.txt:44 (check_include_file)"
+    checks:
+      - "Looking for omp.h"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-LYAZhJ"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-LYAZhJ"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "C_HAS_OMP_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-LYAZhJ'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_b418e/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_b418e.dir/build.make CMakeFiles/cmTC_b418e.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-LYAZhJ'
+        Building C object CMakeFiles/cmTC_b418e.dir/CheckIncludeFile.c.o
+        /usr/local/bin/clang    -MD -MT CMakeFiles/cmTC_b418e.dir/CheckIncludeFile.c.o -MF CMakeFiles/cmTC_b418e.dir/CheckIncludeFile.c.o.d -o CMakeFiles/cmTC_b418e.dir/CheckIncludeFile.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-LYAZhJ/CheckIncludeFile.c
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-LYAZhJ/CheckIncludeFile.c:1:10: fatal error: 'omp.h' file not found
+            1 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_b418e.dir/build.make:82: CMakeFiles/cmTC_b418e.dir/CheckIncludeFile.c.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-LYAZhJ'
+        gmake: *** [Makefile:134: cmTC_b418e/fast] Error 2
+        
+      exitCode: 2
+...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting C OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-JYQZFw"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-JYQZFw"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_C_fopenmplibomp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-JYQZFw'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_755b9/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_755b9.dir/build.make CMakeFiles/cmTC_755b9.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-JYQZFw'
+        Building C object CMakeFiles/cmTC_755b9.dir/OpenMPTryFlag.c.o
+        /usr/local/bin/clang   -fopenmp=libomp -MD -MT CMakeFiles/cmTC_755b9.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_755b9.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_755b9.dir/OpenMPTryFlag.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-JYQZFw/OpenMPTryFlag.c
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-JYQZFw/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_755b9.dir/build.make:82: CMakeFiles/cmTC_755b9.dir/OpenMPTryFlag.c.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-JYQZFw'
+        gmake: *** [Makefile:134: cmTC_755b9/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting C OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-EUdoam"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-EUdoam"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_C_fopenmplibiomp5"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-EUdoam'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_b1bfc/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_b1bfc.dir/build.make CMakeFiles/cmTC_b1bfc.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-EUdoam'
+        Building C object CMakeFiles/cmTC_b1bfc.dir/OpenMPTryFlag.c.o
+        /usr/local/bin/clang   -fopenmp=libiomp5 -MD -MT CMakeFiles/cmTC_b1bfc.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_b1bfc.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_b1bfc.dir/OpenMPTryFlag.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-EUdoam/OpenMPTryFlag.c
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-EUdoam/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_b1bfc.dir/build.make:82: CMakeFiles/cmTC_b1bfc.dir/OpenMPTryFlag.c.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-EUdoam'
+        gmake: *** [Makefile:134: cmTC_b1bfc/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting C OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Hlqh9s"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Hlqh9s"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_C_fopenmp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Hlqh9s'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_22e8a/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_22e8a.dir/build.make CMakeFiles/cmTC_22e8a.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Hlqh9s'
+        Building C object CMakeFiles/cmTC_22e8a.dir/OpenMPTryFlag.c.o
+        /usr/local/bin/clang   -fopenmp -MD -MT CMakeFiles/cmTC_22e8a.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_22e8a.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_22e8a.dir/OpenMPTryFlag.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Hlqh9s/OpenMPTryFlag.c
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Hlqh9s/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_22e8a.dir/build.make:82: CMakeFiles/cmTC_22e8a.dir/OpenMPTryFlag.c.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Hlqh9s'
+        gmake: *** [Makefile:134: cmTC_22e8a/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting C OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Ai6vNk"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Ai6vNk"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_C_Xclang fopenmp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Ai6vNk'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_af2d0/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_af2d0.dir/build.make CMakeFiles/cmTC_af2d0.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Ai6vNk'
+        Building C object CMakeFiles/cmTC_af2d0.dir/OpenMPTryFlag.c.o
+        /usr/local/bin/clang   -Xclang -fopenmp -MD -MT CMakeFiles/cmTC_af2d0.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_af2d0.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_af2d0.dir/OpenMPTryFlag.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Ai6vNk/OpenMPTryFlag.c
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Ai6vNk/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_af2d0.dir/build.make:82: CMakeFiles/cmTC_af2d0.dir/OpenMPTryFlag.c.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Ai6vNk'
+        gmake: *** [Makefile:134: cmTC_af2d0/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting CXX OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-FNRfUO"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-FNRfUO"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_CXX_fopenmplibomp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-FNRfUO'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_81fc2/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_81fc2.dir/build.make CMakeFiles/cmTC_81fc2.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-FNRfUO'
+        Building CXX object CMakeFiles/cmTC_81fc2.dir/OpenMPTryFlag.cpp.o
+        /usr/local/bin/clang++   -fopenmp=libomp -MD -MT CMakeFiles/cmTC_81fc2.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_81fc2.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_81fc2.dir/OpenMPTryFlag.cpp.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-FNRfUO/OpenMPTryFlag.cpp
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-FNRfUO/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_81fc2.dir/build.make:82: CMakeFiles/cmTC_81fc2.dir/OpenMPTryFlag.cpp.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-FNRfUO'
+        gmake: *** [Makefile:134: cmTC_81fc2/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting CXX OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-ZgyV0H"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-ZgyV0H"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_CXX_fopenmplibiomp5"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-ZgyV0H'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_51356/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_51356.dir/build.make CMakeFiles/cmTC_51356.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-ZgyV0H'
+        Building CXX object CMakeFiles/cmTC_51356.dir/OpenMPTryFlag.cpp.o
+        /usr/local/bin/clang++   -fopenmp=libiomp5 -MD -MT CMakeFiles/cmTC_51356.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_51356.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_51356.dir/OpenMPTryFlag.cpp.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-ZgyV0H/OpenMPTryFlag.cpp
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-ZgyV0H/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_51356.dir/build.make:82: CMakeFiles/cmTC_51356.dir/OpenMPTryFlag.cpp.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-ZgyV0H'
+        gmake: *** [Makefile:134: cmTC_51356/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting CXX OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Ltciwv"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Ltciwv"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_CXX_fopenmp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Ltciwv'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_16668/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_16668.dir/build.make CMakeFiles/cmTC_16668.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Ltciwv'
+        Building CXX object CMakeFiles/cmTC_16668.dir/OpenMPTryFlag.cpp.o
+        /usr/local/bin/clang++   -fopenmp -MD -MT CMakeFiles/cmTC_16668.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_16668.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_16668.dir/OpenMPTryFlag.cpp.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Ltciwv/OpenMPTryFlag.cpp
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Ltciwv/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_16668.dir/build.make:82: CMakeFiles/cmTC_16668.dir/OpenMPTryFlag.cpp.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Ltciwv'
+        gmake: *** [Makefile:134: cmTC_16668/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting CXX OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-dkDaRQ"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-dkDaRQ"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_CXX_Xclang fopenmp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-dkDaRQ'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_3a7cc/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_3a7cc.dir/build.make CMakeFiles/cmTC_3a7cc.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-dkDaRQ'
+        Building CXX object CMakeFiles/cmTC_3a7cc.dir/OpenMPTryFlag.cpp.o
+        /usr/local/bin/clang++   -Xclang -fopenmp -MD -MT CMakeFiles/cmTC_3a7cc.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_3a7cc.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_3a7cc.dir/OpenMPTryFlag.cpp.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-dkDaRQ/OpenMPTryFlag.cpp
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-dkDaRQ/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_3a7cc.dir/build.make:82: CMakeFiles/cmTC_3a7cc.dir/OpenMPTryFlag.cpp.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-dkDaRQ'
+        gmake: *** [Makefile:134: cmTC_3a7cc/fast] Error 2
+        
+      exitCode: 2
+...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting C OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-co6OiN"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-co6OiN"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_C_fopenmplibomp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-co6OiN'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_740f7/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_740f7.dir/build.make CMakeFiles/cmTC_740f7.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-co6OiN'
+        Building C object CMakeFiles/cmTC_740f7.dir/OpenMPTryFlag.c.o
+        /usr/local/bin/clang   -fopenmp=libomp -MD -MT CMakeFiles/cmTC_740f7.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_740f7.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_740f7.dir/OpenMPTryFlag.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-co6OiN/OpenMPTryFlag.c
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-co6OiN/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_740f7.dir/build.make:82: CMakeFiles/cmTC_740f7.dir/OpenMPTryFlag.c.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-co6OiN'
+        gmake: *** [Makefile:134: cmTC_740f7/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting C OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-5aSbyK"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-5aSbyK"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_C_fopenmplibiomp5"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-5aSbyK'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_cbaf6/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_cbaf6.dir/build.make CMakeFiles/cmTC_cbaf6.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-5aSbyK'
+        Building C object CMakeFiles/cmTC_cbaf6.dir/OpenMPTryFlag.c.o
+        /usr/local/bin/clang   -fopenmp=libiomp5 -MD -MT CMakeFiles/cmTC_cbaf6.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_cbaf6.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_cbaf6.dir/OpenMPTryFlag.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-5aSbyK/OpenMPTryFlag.c
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-5aSbyK/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_cbaf6.dir/build.make:82: CMakeFiles/cmTC_cbaf6.dir/OpenMPTryFlag.c.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-5aSbyK'
+        gmake: *** [Makefile:134: cmTC_cbaf6/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting C OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-XlNZia"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-XlNZia"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_C_fopenmp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-XlNZia'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_a5530/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_a5530.dir/build.make CMakeFiles/cmTC_a5530.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-XlNZia'
+        Building C object CMakeFiles/cmTC_a5530.dir/OpenMPTryFlag.c.o
+        /usr/local/bin/clang   -fopenmp -MD -MT CMakeFiles/cmTC_a5530.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_a5530.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_a5530.dir/OpenMPTryFlag.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-XlNZia/OpenMPTryFlag.c
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-XlNZia/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_a5530.dir/build.make:82: CMakeFiles/cmTC_a5530.dir/OpenMPTryFlag.c.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-XlNZia'
+        gmake: *** [Makefile:134: cmTC_a5530/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting C OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-jLWumy"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-jLWumy"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_C_Xclang fopenmp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-jLWumy'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_202cc/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_202cc.dir/build.make CMakeFiles/cmTC_202cc.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-jLWumy'
+        Building C object CMakeFiles/cmTC_202cc.dir/OpenMPTryFlag.c.o
+        /usr/local/bin/clang   -Xclang -fopenmp -MD -MT CMakeFiles/cmTC_202cc.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_202cc.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_202cc.dir/OpenMPTryFlag.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-jLWumy/OpenMPTryFlag.c
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-jLWumy/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_202cc.dir/build.make:82: CMakeFiles/cmTC_202cc.dir/OpenMPTryFlag.c.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-jLWumy'
+        gmake: *** [Makefile:134: cmTC_202cc/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting CXX OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-gr6nyn"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-gr6nyn"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_CXX_fopenmplibomp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-gr6nyn'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_5a22d/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_5a22d.dir/build.make CMakeFiles/cmTC_5a22d.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-gr6nyn'
+        Building CXX object CMakeFiles/cmTC_5a22d.dir/OpenMPTryFlag.cpp.o
+        /usr/local/bin/clang++   -fopenmp=libomp -MD -MT CMakeFiles/cmTC_5a22d.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_5a22d.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_5a22d.dir/OpenMPTryFlag.cpp.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-gr6nyn/OpenMPTryFlag.cpp
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-gr6nyn/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_5a22d.dir/build.make:82: CMakeFiles/cmTC_5a22d.dir/OpenMPTryFlag.cpp.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-gr6nyn'
+        gmake: *** [Makefile:134: cmTC_5a22d/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting CXX OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-qGY1SF"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-qGY1SF"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_CXX_fopenmplibiomp5"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-qGY1SF'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_194a3/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_194a3.dir/build.make CMakeFiles/cmTC_194a3.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-qGY1SF'
+        Building CXX object CMakeFiles/cmTC_194a3.dir/OpenMPTryFlag.cpp.o
+        /usr/local/bin/clang++   -fopenmp=libiomp5 -MD -MT CMakeFiles/cmTC_194a3.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_194a3.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_194a3.dir/OpenMPTryFlag.cpp.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-qGY1SF/OpenMPTryFlag.cpp
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-qGY1SF/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_194a3.dir/build.make:82: CMakeFiles/cmTC_194a3.dir/OpenMPTryFlag.cpp.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-qGY1SF'
+        gmake: *** [Makefile:134: cmTC_194a3/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting CXX OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-4gl01a"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-4gl01a"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_CXX_fopenmp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-4gl01a'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_614f4/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_614f4.dir/build.make CMakeFiles/cmTC_614f4.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-4gl01a'
+        Building CXX object CMakeFiles/cmTC_614f4.dir/OpenMPTryFlag.cpp.o
+        /usr/local/bin/clang++   -fopenmp -MD -MT CMakeFiles/cmTC_614f4.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_614f4.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_614f4.dir/OpenMPTryFlag.cpp.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-4gl01a/OpenMPTryFlag.cpp
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-4gl01a/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_614f4.dir/build.make:82: CMakeFiles/cmTC_614f4.dir/OpenMPTryFlag.cpp.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-4gl01a'
+        gmake: *** [Makefile:134: cmTC_614f4/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting CXX OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-vPKShl"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-vPKShl"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_CXX_Xclang fopenmp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-vPKShl'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_c4981/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_c4981.dir/build.make CMakeFiles/cmTC_c4981.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-vPKShl'
+        Building CXX object CMakeFiles/cmTC_c4981.dir/OpenMPTryFlag.cpp.o
+        /usr/local/bin/clang++   -Xclang -fopenmp -MD -MT CMakeFiles/cmTC_c4981.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_c4981.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_c4981.dir/OpenMPTryFlag.cpp.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-vPKShl/OpenMPTryFlag.cpp
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-vPKShl/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_c4981.dir/build.make:82: CMakeFiles/cmTC_c4981.dir/OpenMPTryFlag.cpp.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-vPKShl'
+        gmake: *** [Makefile:134: cmTC_c4981/fast] Error 2
+        
+      exitCode: 2
+...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting C OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-pV2svW"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-pV2svW"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_C_fopenmplibomp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-pV2svW'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_c22cd/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_c22cd.dir/build.make CMakeFiles/cmTC_c22cd.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-pV2svW'
+        Building C object CMakeFiles/cmTC_c22cd.dir/OpenMPTryFlag.c.o
+        /usr/local/bin/clang   -fopenmp=libomp -MD -MT CMakeFiles/cmTC_c22cd.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_c22cd.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_c22cd.dir/OpenMPTryFlag.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-pV2svW/OpenMPTryFlag.c
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-pV2svW/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_c22cd.dir/build.make:82: CMakeFiles/cmTC_c22cd.dir/OpenMPTryFlag.c.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-pV2svW'
+        gmake: *** [Makefile:134: cmTC_c22cd/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting C OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-ullQiD"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-ullQiD"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_C_fopenmplibiomp5"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-ullQiD'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_a9d14/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_a9d14.dir/build.make CMakeFiles/cmTC_a9d14.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-ullQiD'
+        Building C object CMakeFiles/cmTC_a9d14.dir/OpenMPTryFlag.c.o
+        /usr/local/bin/clang   -fopenmp=libiomp5 -MD -MT CMakeFiles/cmTC_a9d14.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_a9d14.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_a9d14.dir/OpenMPTryFlag.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-ullQiD/OpenMPTryFlag.c
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-ullQiD/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_a9d14.dir/build.make:82: CMakeFiles/cmTC_a9d14.dir/OpenMPTryFlag.c.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-ullQiD'
+        gmake: *** [Makefile:134: cmTC_a9d14/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting C OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-71UdLx"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-71UdLx"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_C_fopenmp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-71UdLx'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_ec658/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_ec658.dir/build.make CMakeFiles/cmTC_ec658.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-71UdLx'
+        Building C object CMakeFiles/cmTC_ec658.dir/OpenMPTryFlag.c.o
+        /usr/local/bin/clang   -fopenmp -MD -MT CMakeFiles/cmTC_ec658.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_ec658.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_ec658.dir/OpenMPTryFlag.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-71UdLx/OpenMPTryFlag.c
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-71UdLx/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_ec658.dir/build.make:82: CMakeFiles/cmTC_ec658.dir/OpenMPTryFlag.c.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-71UdLx'
+        gmake: *** [Makefile:134: cmTC_ec658/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting C OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-1p0ZCp"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-1p0ZCp"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_C_Xclang fopenmp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-1p0ZCp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_72123/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_72123.dir/build.make CMakeFiles/cmTC_72123.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-1p0ZCp'
+        Building C object CMakeFiles/cmTC_72123.dir/OpenMPTryFlag.c.o
+        /usr/local/bin/clang   -Xclang -fopenmp -MD -MT CMakeFiles/cmTC_72123.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_72123.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_72123.dir/OpenMPTryFlag.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-1p0ZCp/OpenMPTryFlag.c
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-1p0ZCp/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_72123.dir/build.make:82: CMakeFiles/cmTC_72123.dir/OpenMPTryFlag.c.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-1p0ZCp'
+        gmake: *** [Makefile:134: cmTC_72123/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting CXX OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-wvs2hw"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-wvs2hw"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_CXX_fopenmplibomp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-wvs2hw'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_cdb71/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_cdb71.dir/build.make CMakeFiles/cmTC_cdb71.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-wvs2hw'
+        Building CXX object CMakeFiles/cmTC_cdb71.dir/OpenMPTryFlag.cpp.o
+        /usr/local/bin/clang++   -fopenmp=libomp -MD -MT CMakeFiles/cmTC_cdb71.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_cdb71.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_cdb71.dir/OpenMPTryFlag.cpp.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-wvs2hw/OpenMPTryFlag.cpp
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-wvs2hw/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_cdb71.dir/build.make:82: CMakeFiles/cmTC_cdb71.dir/OpenMPTryFlag.cpp.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-wvs2hw'
+        gmake: *** [Makefile:134: cmTC_cdb71/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting CXX OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-99MlVg"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-99MlVg"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_CXX_fopenmplibiomp5"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-99MlVg'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_59a79/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_59a79.dir/build.make CMakeFiles/cmTC_59a79.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-99MlVg'
+        Building CXX object CMakeFiles/cmTC_59a79.dir/OpenMPTryFlag.cpp.o
+        /usr/local/bin/clang++   -fopenmp=libiomp5 -MD -MT CMakeFiles/cmTC_59a79.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_59a79.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_59a79.dir/OpenMPTryFlag.cpp.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-99MlVg/OpenMPTryFlag.cpp
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-99MlVg/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_59a79.dir/build.make:82: CMakeFiles/cmTC_59a79.dir/OpenMPTryFlag.cpp.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-99MlVg'
+        gmake: *** [Makefile:134: cmTC_59a79/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting CXX OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-j4Af35"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-j4Af35"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_CXX_fopenmp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-j4Af35'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_5945f/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_5945f.dir/build.make CMakeFiles/cmTC_5945f.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-j4Af35'
+        Building CXX object CMakeFiles/cmTC_5945f.dir/OpenMPTryFlag.cpp.o
+        /usr/local/bin/clang++   -fopenmp -MD -MT CMakeFiles/cmTC_5945f.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_5945f.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_5945f.dir/OpenMPTryFlag.cpp.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-j4Af35/OpenMPTryFlag.cpp
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-j4Af35/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_5945f.dir/build.make:82: CMakeFiles/cmTC_5945f.dir/OpenMPTryFlag.cpp.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-j4Af35'
+        gmake: *** [Makefile:134: cmTC_5945f/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting CXX OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-ociYrf"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-ociYrf"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_CXX_Xclang fopenmp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-ociYrf'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_82380/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_82380.dir/build.make CMakeFiles/cmTC_82380.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-ociYrf'
+        Building CXX object CMakeFiles/cmTC_82380.dir/OpenMPTryFlag.cpp.o
+        /usr/local/bin/clang++   -Xclang -fopenmp -MD -MT CMakeFiles/cmTC_82380.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_82380.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_82380.dir/OpenMPTryFlag.cpp.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-ociYrf/OpenMPTryFlag.cpp
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-ociYrf/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_82380.dir/build.make:82: CMakeFiles/cmTC_82380.dir/OpenMPTryFlag.cpp.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-ociYrf'
+        gmake: *** [Makefile:134: cmTC_82380/fast] Error 2
+        
+      exitCode: 2
+...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting C OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-eymlzl"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-eymlzl"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_C_fopenmplibomp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-eymlzl'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_594a9/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_594a9.dir/build.make CMakeFiles/cmTC_594a9.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-eymlzl'
+        Building C object CMakeFiles/cmTC_594a9.dir/OpenMPTryFlag.c.o
+        /usr/local/bin/clang   -fopenmp=libomp -MD -MT CMakeFiles/cmTC_594a9.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_594a9.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_594a9.dir/OpenMPTryFlag.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-eymlzl/OpenMPTryFlag.c
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-eymlzl/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_594a9.dir/build.make:82: CMakeFiles/cmTC_594a9.dir/OpenMPTryFlag.c.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-eymlzl'
+        gmake: *** [Makefile:134: cmTC_594a9/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting C OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Kswa8F"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Kswa8F"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_C_fopenmplibiomp5"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Kswa8F'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_4591d/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_4591d.dir/build.make CMakeFiles/cmTC_4591d.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Kswa8F'
+        Building C object CMakeFiles/cmTC_4591d.dir/OpenMPTryFlag.c.o
+        /usr/local/bin/clang   -fopenmp=libiomp5 -MD -MT CMakeFiles/cmTC_4591d.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_4591d.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_4591d.dir/OpenMPTryFlag.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Kswa8F/OpenMPTryFlag.c
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Kswa8F/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_4591d.dir/build.make:82: CMakeFiles/cmTC_4591d.dir/OpenMPTryFlag.c.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-Kswa8F'
+        gmake: *** [Makefile:134: cmTC_4591d/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting C OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-rZkBe8"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-rZkBe8"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_C_fopenmp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-rZkBe8'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_f2e03/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_f2e03.dir/build.make CMakeFiles/cmTC_f2e03.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-rZkBe8'
+        Building C object CMakeFiles/cmTC_f2e03.dir/OpenMPTryFlag.c.o
+        /usr/local/bin/clang   -fopenmp -MD -MT CMakeFiles/cmTC_f2e03.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_f2e03.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_f2e03.dir/OpenMPTryFlag.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-rZkBe8/OpenMPTryFlag.c
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-rZkBe8/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_f2e03.dir/build.make:82: CMakeFiles/cmTC_f2e03.dir/OpenMPTryFlag.c.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-rZkBe8'
+        gmake: *** [Makefile:134: cmTC_f2e03/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting C OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-MJqG1B"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-MJqG1B"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_C_Xclang fopenmp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-MJqG1B'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_57122/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_57122.dir/build.make CMakeFiles/cmTC_57122.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-MJqG1B'
+        Building C object CMakeFiles/cmTC_57122.dir/OpenMPTryFlag.c.o
+        /usr/local/bin/clang   -Xclang -fopenmp -MD -MT CMakeFiles/cmTC_57122.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_57122.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_57122.dir/OpenMPTryFlag.c.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-MJqG1B/OpenMPTryFlag.c
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-MJqG1B/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_57122.dir/build.make:82: CMakeFiles/cmTC_57122.dir/OpenMPTryFlag.c.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-MJqG1B'
+        gmake: *** [Makefile:134: cmTC_57122/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting CXX OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-2NgBhV"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-2NgBhV"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_CXX_fopenmplibomp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-2NgBhV'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_c24ae/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_c24ae.dir/build.make CMakeFiles/cmTC_c24ae.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-2NgBhV'
+        Building CXX object CMakeFiles/cmTC_c24ae.dir/OpenMPTryFlag.cpp.o
+        /usr/local/bin/clang++   -fopenmp=libomp -MD -MT CMakeFiles/cmTC_c24ae.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_c24ae.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_c24ae.dir/OpenMPTryFlag.cpp.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-2NgBhV/OpenMPTryFlag.cpp
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-2NgBhV/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_c24ae.dir/build.make:82: CMakeFiles/cmTC_c24ae.dir/OpenMPTryFlag.cpp.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-2NgBhV'
+        gmake: *** [Makefile:134: cmTC_c24ae/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting CXX OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-fyQR2d"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-fyQR2d"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_CXX_fopenmplibiomp5"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-fyQR2d'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_c9046/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_c9046.dir/build.make CMakeFiles/cmTC_c9046.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-fyQR2d'
+        Building CXX object CMakeFiles/cmTC_c9046.dir/OpenMPTryFlag.cpp.o
+        /usr/local/bin/clang++   -fopenmp=libiomp5 -MD -MT CMakeFiles/cmTC_c9046.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_c9046.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_c9046.dir/OpenMPTryFlag.cpp.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-fyQR2d/OpenMPTryFlag.cpp
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-fyQR2d/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_c9046.dir/build.make:82: CMakeFiles/cmTC_c9046.dir/OpenMPTryFlag.cpp.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-fyQR2d'
+        gmake: *** [Makefile:134: cmTC_c9046/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting CXX OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-UasB3I"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-UasB3I"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_CXX_fopenmp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-UasB3I'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_6f772/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_6f772.dir/build.make CMakeFiles/cmTC_6f772.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-UasB3I'
+        Building CXX object CMakeFiles/cmTC_6f772.dir/OpenMPTryFlag.cpp.o
+        /usr/local/bin/clang++   -fopenmp -MD -MT CMakeFiles/cmTC_6f772.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_6f772.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_6f772.dir/OpenMPTryFlag.cpp.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-UasB3I/OpenMPTryFlag.cpp
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-UasB3I/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_6f772.dir/build.make:82: CMakeFiles/cmTC_6f772.dir/OpenMPTryFlag.cpp.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-UasB3I'
+        gmake: *** [Makefile:134: cmTC_6f772/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:252 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/FindOpenMP.cmake:522 (_OPENMP_GET_FLAGS)"
+      - "CMakeLists.txt:20 (find_package)"
+    description: "Detecting CXX OpenMP compiler info"
+    directories:
+      source: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-IdS2eu"
+      binary: "/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-IdS2eu"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/local/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "OpenMP_COMPILE_RESULT_CXX_Xclang fopenmp"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-IdS2eu'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_ce457/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_ce457.dir/build.make CMakeFiles/cmTC_ce457.dir/build
+        gmake[1]: Entering directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-IdS2eu'
+        Building CXX object CMakeFiles/cmTC_ce457.dir/OpenMPTryFlag.cpp.o
+        /usr/local/bin/clang++   -Xclang -fopenmp -MD -MT CMakeFiles/cmTC_ce457.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_ce457.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_ce457.dir/OpenMPTryFlag.cpp.o -c /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-IdS2eu/OpenMPTryFlag.cpp
+        /home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-IdS2eu/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+            2 | #include <omp.h>
+              |          ^~~~~~~
+        1 error generated.
+        gmake[1]: *** [CMakeFiles/cmTC_ce457.dir/build.make:82: CMakeFiles/cmTC_ce457.dir/OpenMPTryFlag.cpp.o] Error 1
+        gmake[1]: Leaving directory '/home/jz/llvm-project/openmp/DetectTestCompiler/CMakeFiles/CMakeScratch/TryCompile-IdS2eu'
+        gmake: *** [Makefile:134: cmTC_ce457/fast] Error 2
+        
+      exitCode: 2
+...

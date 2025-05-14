@@ -27,7 +27,7 @@ all: profile-test
 
 build:
 	mkdir -p $(LLVM_BUILD_DIR)
-	cd $(LLVM_BUILD_DIR) && $(CMAKE) -G "Unix Makefiles" -DLLVM_ENABLE_PROJECTS="clang" -DCMAKE_BUILD_TYPE=Release  ../llvm
+	cd $(LLVM_BUILD_DIR) && $(CMAKE) -G "Unix Makefiles" -DLLVM_ENABLE_PROJECTS="clang" -DCMAKE_BUILD_TYPE=Debug  ../llvm
 	$(MAKE) -C $(LLVM_BUILD_DIR) -j$(NPROC)
 
 base-ll: $(TEST_SRC) 
@@ -48,9 +48,6 @@ instru-test: instru-opt runtime
 	$(CLANGXX) $(TEST_INSTRU_LL) $(RUNTIME_O) -o $(TEST_BIN)
 
 
-
-
-
 optimize-opt: base-ll
 	$(OPT) -S -passes=heap-optimizer $(BASE_LL) -o $(TEST_OPTIMIZE_LL)
 	
@@ -60,10 +57,8 @@ optimize-test: optimize-opt
 make-optimized-bin-run:
 	LD_LIBRARY_PATH=./hmalloc ./$(OPTIMIZED_TEST_BIN)
 	
-
-
 $(HMSDK_EXAMPLE):
-	$(CC) $(HMALLOC_SRC)/example.c -o $(HMSDK_EXAMPLE) -L$(HMALLOC_SRC) -lhmalloc -I$(HMALLOC_SRC)/include
+	$(CC) $(HMALLOC_SRC)/example.c -o $(HMSDK_EXAMPLE) -L$(HMALLOC_SRC) -lhmalloc -I$(HMALLOC_SRC)/include 
 
 
 clean-profile:

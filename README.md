@@ -42,3 +42,12 @@ chat](https://discord.gg/xS7Z362),
 
 The LLVM project has adopted a [code of conduct](https://llvm.org/docs/CodeOfConduct.html) for
 participants to all modes of communication within the project.
+
+
+
+## how to run CXL-PGO
+
+### run benchmark
+ cd ./benchmark/XsBench/openmp-threading/
+ export CC=clang
+ export CLANG_MODE=INSTRUMENT

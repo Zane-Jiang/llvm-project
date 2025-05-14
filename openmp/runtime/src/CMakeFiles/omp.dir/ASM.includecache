@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/jz/llvm-project/openmp/runtime/src/kmp_config.h
+kmp_platform.h
+/home/jz/llvm-project/openmp/runtime/src/kmp_platform.h
+
+/home/jz/llvm-project/openmp/runtime/src/kmp_platform.h
+
+/home/jz/llvm-project/openmp/runtime/src/z_Linux_asm.S
+kmp_config.h
+/home/jz/llvm-project/openmp/runtime/src/kmp_config.h
+cet.h
+-
+
