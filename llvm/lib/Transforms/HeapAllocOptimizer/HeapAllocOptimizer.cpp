@@ -90,14 +90,32 @@ bool HeapAllocOptimizer::loadProfileDataFromTxt() {
 }
 
 StringRef HeapAllocOptimizer::selectAllocator(CallBase *CI) const {
-  errs()<<"hmalooc~~~~~~~~~~~";
-  return "hmalloc";
   uint64_t ID = generateAllocID(CI->getDebugLoc());
+  Function *Callee = nullptr;
+  Callee = CI->getCalledFunction();
+  if (Callee == nullptr){
+    return "";
+  }
+  StringRef Name = Callee->getName();
   //todo add alloc support
-  if((*m_pAccessMap)[ID]->bLocal){
-    return "malloc";
+  if(m_pAccessMap == nullptr || m_pAccessMap->find(ID) == m_pAccessMap->end())
+  {
+    errs()<<"m_pAccessMap == nullptr\n";
+    return "";
+  }
+
+  if(!(*m_pAccessMap)[ID]->bLocal){
+    if(Name.contains("malloc")){
+      return "hmalloc";
+    }else if(Name.contains("calloc")){
+      return "hcalloc";
+    }else if(Name.contains("realloc")){
+      return "hrealloc";
+    }else{
+      return "";
+    }
   }else{
-    return "hmalloc";
+    return "";
   }
 }
 
