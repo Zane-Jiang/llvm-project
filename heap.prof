@@ -1,5 +1,0 @@
-=== Final Statistics ===
-id | ptr | location | size | read_count | write_count
-1252655625 0x55e8c94c2490 test.c:74:20 4 1 1
-949087689 0x55e8c94c2490 test.c:87:20 4 0 1
-1613637490 0x55e8c94c2490 test.c:92:20 4 0 1

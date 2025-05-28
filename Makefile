@@ -28,7 +28,7 @@ all: profile-test
 build:
 	mkdir -p $(LLVM_BUILD_DIR)
 	cd $(LLVM_BUILD_DIR) && $(CMAKE) -G "Unix Makefiles" -DLLVM_ENABLE_PROJECTS="clang" -DCMAKE_BUILD_TYPE=Debug  ../llvm
-	$(MAKE) -C $(LLVM_BUILD_DIR) -j$(NPROC)
+	nohup $(MAKE) -C $(LLVM_BUILD_DIR) -j$(NPROC)
 
 base-ll: $(TEST_SRC) 
 	$(CLANG) -S -g -emit-llvm $(TEST_SRC) -o $(BASE_LL)
@@ -54,7 +54,7 @@ optimize-opt: base-ll
 optimize-test: optimize-opt 
 	$(CLANGXX) $(TEST_OPTIMIZE_LL) -L$(HMALLOC_SRC) -lhmalloc -I$(HMALLOC_SRC)/include  -o $(OPTIMIZED_TEST_BIN)
 
-make-optimized-bin-run:
+make-optimized-bin-run: optimize-test
 	LD_LIBRARY_PATH=./hmalloc ./$(OPTIMIZED_TEST_BIN)
 	
 $(HMSDK_EXAMPLE):

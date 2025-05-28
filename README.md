@@ -46,6 +46,13 @@ participants to all modes of communication within the project.
 
 
 ## how to run CXL-PGO
+sudo cp hmalloc/libhmalloc.so /usr/local/lib/
+LD_LIBRARY_PATH=/home/jz/llvm-project/hmalloc
+
+hmalloc envset 
+export HMALLOC_JEMALLOC=1
+export HMALLOC_NODEMASK=4
+export HMALLOC_MPOL_MODE=2
 
 ### run benchmark
  cd ./benchmark/XsBench/openmp-threading/

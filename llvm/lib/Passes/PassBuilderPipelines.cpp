@@ -146,7 +146,8 @@
 #include "llvm/Transforms/Vectorize/LoopVectorize.h"
 #include "llvm/Transforms/Vectorize/SLPVectorizer.h"
 #include "llvm/Transforms/Vectorize/VectorCombine.h"
-
+#include "llvm/Transforms/HeapAllocOptimizer/HeapAllocOptimizer.h"
+#include "llvm/Transforms/HeapProfiler/HeapProfiler.h"
 using namespace llvm;
 
 static cl::opt<InliningAdvisorMode> UseInlineAdvisor(
@@ -2303,6 +2304,17 @@ PassBuilder::buildO0DefaultPipeline(OptimizationLevel Level,
     addRequiredLTOPreLinkPasses(MPM);
 
   MPM.addPass(createModuleToFunctionPassAdaptor(AnnotationRemarksPass()));
+
+  char *env = getenv("CLANG_MODE");
+  if(env){
+      if(0 == strcmp(env, "INSTRUMENT")){
+        errs()<<"[LLVM O0]CLANG_PGO_MODE : instrument\n";
+        MPM.addPass(HeapProfiler());
+      }else if( 0 == strcmp(env, "OPTIMIZE")){
+        errs()<<"[LLVM O0]CLANG_PGO_MODE : optimize\n";
+        MPM.addPass(HeapAllocOptimizer());
+      }
+  }
 
   return MPM;
 }

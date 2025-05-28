@@ -15,10 +15,11 @@
 using namespace llvm;
 
 PreservedAnalyses HeapAllocOptimizer::run(Module &M, ModuleAnalysisManager &AM) {
-  AccessMap.clear();
-  if (!loadProfileDataFromTxt(AccessMap)) {
+  if (!loadProfileDataFromTxt()) {
+    errs()<<"Load Proffile falied, skip cxl place optimize ";
     return PreservedAnalyses::none();
   }
+  allocStrategy();
   std::vector<CallBase*> ToReplace;
   for (Function &F : M) {
     for (BasicBlock &BB : F) {
@@ -39,8 +40,41 @@ PreservedAnalyses HeapAllocOptimizer::run(Module &M, ModuleAnalysisManager &AM) 
   }
   return PreservedAnalyses::all();
 }
+void HeapAllocOptimizer::allocStrategy()
+{
+  MemoryParams params;
+  uint64_t ddrCapacity;
+  auto sortedVars = std::make_unique<std::vector<std::pair<uint64_t, SHeapVar*>>>();
+  sortedVars->reserve(m_pAccessMap->size());
+  for (auto &[id, var] : *m_pAccessMap) {
+    var->cost = var->read_count * (params.cxl_read_lat - params.ddr_read_lat) +
+                var->write_count * (params.cxl_write_lat - params.ddr_write_lat);
+    var->byte_cost = (var->size > 0) ? var->cost / var->size : 0;
+    sortedVars->emplace_back(id, var.get());
+  }
 
-bool HeapAllocOptimizer::loadProfileDataFromTxt(DenseMap<uint64_t, uint64_t> &AccessMap) {
+  std::sort(sortedVars->begin(), sortedVars->end(),
+    [](const auto &a, const auto &b) {
+      return a.second->byte_cost > b.second->byte_cost;
+    });
+
+  
+  uint64_t usedCapacity = 0;
+  for (auto &[id, var] : *sortedVars) {
+    if (usedCapacity + var->size <= ddrCapacity*0.8) {
+      (*m_pAccessMap)[id]->bLocal = true;
+      usedCapacity += var->size;
+    } else {
+      (*m_pAccessMap)[id]->bLocal = false;
+    }
+  }
+}
+bool HeapAllocOptimizer::loadProfileDataFromTxt() {
+  if(nullptr == m_pAccessMap){
+    m_pAccessMap = std::make_unique<llvm::DenseMap<uint64_t, std::unique_ptr<SHeapVar>>>();
+  }
+  m_pAccessMap->clear();
+
   std::ifstream infile("heap.prof");
   if (!infile.is_open()) return false;
   std::string line;
@@ -48,22 +82,23 @@ bool HeapAllocOptimizer::loadProfileDataFromTxt(DenseMap<uint64_t, uint64_t> &Ac
   std::getline(infile, line);
   while (std::getline(infile, line)) {
     std::istringstream iss(line);
-    uint64_t id, size, read_count, write_count;
-    std::string ptr, location;
-    if (!(iss >> id >> ptr >> location >> size >> read_count >> write_count)) continue;
-    AccessMap[id] = read_count + write_count;
+    SHeapVar heapVar;
+    if (!(iss >> heapVar.id >> heapVar.ptr >> heapVar.location >> heapVar.size >> heapVar.read_count >> heapVar.write_count)) continue;
+    (*m_pAccessMap)[heapVar.id] = std::make_unique<SHeapVar>(heapVar);
   }
   return true;
 }
 
 StringRef HeapAllocOptimizer::selectAllocator(CallBase *CI) const {
+  errs()<<"hmalooc~~~~~~~~~~~";
+  return "hmalloc";
   uint64_t ID = generateAllocID(CI->getDebugLoc());
-  uint64_t hotness = 0;
-  auto it = AccessMap.find(ID);
-  if (it != AccessMap.end()) hotness = it->second;
-  const uint64_t CXLThreshold = 1; 
   //todo add alloc support
-  return hotness > CXLThreshold ? "hmalloc" : "malloc";
+  if((*m_pAccessMap)[ID]->bLocal){
+    return "malloc";
+  }else{
+    return "hmalloc";
+  }
 }
 
 void HeapAllocOptimizer::replaceAllocator(CallBase *CI, Module &M) const {
@@ -108,18 +143,18 @@ extern "C" LLVM_ATTRIBUTE_WEAK PassPluginLibraryInfo llvmGetPassPluginInfo() {
         PB.registerPipelineParsingCallback(
             [](StringRef Name, ModulePassManager &MPM,
                ArrayRef<PassBuilder::PipelineElement>) {
-              // char *env = getenv("CLANG_MODE");
-              // if(!env && 0 == strcmp(env, "OPTIMIZE")){
-                // MPM.addPass(HeapAllocOptimizer());
-                // return true;
-              // }else if(env || (!env && strcmp(env, "AOTU"))){
-                // if (Name == "heap-optimizer") {
+              char *env = getenv("CLANG_MODE");
+              if(!env && 0 == strcmp(env, "OPTIMIZE")){
+                MPM.addPass(HeapAllocOptimizer());
+                return true;
+              }else if(env || (!env && strcmp(env, "AOTU"))){
+                if (Name == "heap-optimizer") {
                     errs()<<"addPass(HeapAllocOptimizer())";
                     MPM.addPass(HeapAllocOptimizer());
                     return true;
-                // }
-              // }
-              // return false;
+                }
+              }
+              return false;
             });
       }};
 }
