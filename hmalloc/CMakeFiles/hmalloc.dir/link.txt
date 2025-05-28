@@ -1,1 +1,0 @@
-/usr/bin/cc -fPIC -O2 -g -DNDEBUG -Wl,--dependency-file=CMakeFiles/hmalloc.dir/link.d -shared -Wl,-soname,libhmalloc.so -o libhmalloc.so CMakeFiles/hmalloc.dir/src/hmalloc.c.o CMakeFiles/hmalloc.dir/src/env.c.o  /usr/lib/x86_64-linux-gnu/libjemalloc.so /usr/lib/x86_64-linux-gnu/libnuma.so
