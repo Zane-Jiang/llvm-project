@@ -27,6 +27,7 @@ using HeapAccessMap = std::unique_ptr<llvm::DenseMap<uint64_t, std::unique_ptr<S
     double ddr_write_lat;  
     double cxl_read_lat;   
     double cxl_write_lat; 
+    double ddr_capacity;
   };
     struct HeapAllocOptimizer : public PassInfoMixin<HeapAllocOptimizer> {
 public:
@@ -37,7 +38,7 @@ private:
   StringRef selectAllocator(CallBase *CI) const;
   void replaceAllocator(CallBase *CI, Module &M) const;
   bool loadProfileDataFromTxt();
-  void allocStrategy();
+  bool allocStrategy();
   uint64_t generateAllocID(const DebugLoc &Loc) const;
   HeapAccessMap  m_pAccessMap;
 };

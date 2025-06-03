@@ -3,6 +3,7 @@
 #include "llvm/Passes/PassPlugin.h"
 #include "llvm/ProfileData/InstrProf.h"
 #include "llvm/Transforms/Utils/ModuleUtils.h"
+#include "llvm/Transforms/HeapProfiler/My_hash.h"
 #include "llvm/Transforms/HeapAllocOptimizer/HeapAllocOptimizer.h"
 #include "llvm/Analysis/BlockFrequencyInfo.h"
 #include "llvm/Analysis/BranchProbabilityInfo.h"
@@ -13,13 +14,55 @@
 #include <sstream>
 #include <string>
 using namespace llvm;
+static inline bool read_memory_params(const std::string& config_path,MemoryParams& params) {
+    std::ifstream infile(config_path);
+    if (!infile.is_open()) {
+        errs()<<"Failed to open memory parameters file: " + config_path;
+        return false;
+    }
+    std::map<std::string, double*> param_map = {
+        {"ddr_read_lat", &params.ddr_read_lat},
+        {"ddr_write_lat", &params.ddr_write_lat},
+        {"cxl_read_lat", &params.cxl_read_lat},
+        {"cxl_write_lat", &params.cxl_write_lat},
+        {"ddr_capacity",&params.ddr_capacity}
+    };
+    
+    std::string line;
+    while (std::getline(infile, line)) {
+        size_t eq_pos = line.find('=');
+        if (eq_pos == std::string::npos) continue;
+        
+        std::string key = line.substr(0, eq_pos);
+        key.erase(key.find_last_not_of(" \t") + 1);
+        
+        std::string value_str = line.substr(eq_pos + 1);
+        double value = std::stod(value_str);
+            
+        auto it = param_map.find(key);
+        if (it != param_map.end()) {
+              *(it->second) = value;
+        }
+
+    }
+    
+    for (const auto& [key, ptr] : param_map) {
+        if (*ptr == 0) {
+            errs()<<("Missing parameter in config file: " + key);
+            return false;
+        }
+    }
+    return true;
+}
 
 PreservedAnalyses HeapAllocOptimizer::run(Module &M, ModuleAnalysisManager &AM) {
   if (!loadProfileDataFromTxt()) {
     errs()<<"Load Proffile falied, skip cxl place optimize ";
-    return PreservedAnalyses::none();
+    return PreservedAnalyses::all();
   }
-  allocStrategy();
+  if(!allocStrategy()){
+    return PreservedAnalyses::all();
+  }
   std::vector<CallBase*> ToReplace;
   for (Function &F : M) {
     for (BasicBlock &BB : F) {
@@ -35,15 +78,20 @@ PreservedAnalyses HeapAllocOptimizer::run(Module &M, ModuleAnalysisManager &AM) 
       }
     }
   }
+
   for (CallBase* CI : ToReplace) {
     replaceAllocator(CI, *CI->getModule());
   }
-  return PreservedAnalyses::all();
+  return PreservedAnalyses::none();
 }
-void HeapAllocOptimizer::allocStrategy()
+
+bool HeapAllocOptimizer::allocStrategy()
 {
   MemoryParams params;
-  uint64_t ddrCapacity;
+ if(!read_memory_params(std::string(getenv("HOME")) + "/.cxl_mem_params.conf",params)){
+  return false;
+ }
+
   auto sortedVars = std::make_unique<std::vector<std::pair<uint64_t, SHeapVar*>>>();
   sortedVars->reserve(m_pAccessMap->size());
   for (auto &[id, var] : *m_pAccessMap) {
@@ -61,13 +109,14 @@ void HeapAllocOptimizer::allocStrategy()
   
   uint64_t usedCapacity = 0;
   for (auto &[id, var] : *sortedVars) {
-    if (usedCapacity + var->size <= ddrCapacity*0.8) {
+    if (usedCapacity + var->size <= params.ddr_capacity*0.8) {
       (*m_pAccessMap)[id]->bLocal = true;
       usedCapacity += var->size;
     } else {
       (*m_pAccessMap)[id]->bLocal = false;
     }
   }
+  return true;
 }
 bool HeapAllocOptimizer::loadProfileDataFromTxt() {
   if(nullptr == m_pAccessMap){
@@ -100,10 +149,15 @@ StringRef HeapAllocOptimizer::selectAllocator(CallBase *CI) const {
   //todo add alloc support
   if(m_pAccessMap == nullptr || m_pAccessMap->find(ID) == m_pAccessMap->end())
   {
-    errs()<<"m_pAccessMap == nullptr\n";
+    if(m_pAccessMap == nullptr){
+        errs()<<"m_pAccessMap == nullptr\n";
+    }else{
+      // errs()<<"not find "<<ID <<"\n";
+    }
     return "";
   }
 
+  errs()<<"find: "<<ID <<"\n";
   if(!(*m_pAccessMap)[ID]->bLocal){
     if(Name.contains("malloc")){
       return "hmalloc";
@@ -123,6 +177,8 @@ void HeapAllocOptimizer::replaceAllocator(CallBase *CI, Module &M) const {
   StringRef NewAlloc = selectAllocator(CI);
   if(NewAlloc.empty()){
     return ;
+  }else{
+    // errs()<<NewAlloc;
   }
   IRBuilder<> Builder(CI);
   FunctionType *FTy = CI->getFunctionType();
@@ -144,12 +200,16 @@ void HeapAllocOptimizer::replaceAllocator(CallBase *CI, Module &M) const {
 
 uint64_t HeapAllocOptimizer::generateAllocID(const DebugLoc &Loc) const {
   static uint64_t next_id = 1;
-  int id = 0;
+  uint64_t id = 0;
   if (Loc) {
-    id = hash_combine(  
-        hash_value(Loc->getFilename()),
+    id = my_hash_combine(  
+        fnv1a_hash(Loc->getFilename()),
         Loc.getLine(),
         Loc.getCol());
+        std::string   LocationStr = Loc->getFilename().str() + ":" + 
+               std::to_string(Loc.getLine()) + ":" + 
+               std::to_string(Loc.getCol());
+               errs()<<LocationStr<<"  "<<id<<"\n";
   }
   return id ? id : next_id++;
 }

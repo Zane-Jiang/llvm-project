@@ -7,6 +7,7 @@
 #include "llvm/IR/IRBuilder.h"
 #include "llvm/Transforms/HeapProfiler/HeapProfiler.h"
 #include <string>
+#include "llvm/Transforms/HeapProfiler/My_hash.h"
 
 using namespace llvm;
 template class llvm::PassInfoMixin<HeapProfiler>;
@@ -154,19 +155,19 @@ void HeapProfiler::instrumentAccess(Instruction *I, Module &M) {
                          Type::getInt1Ty(M.getContext())}, false));
   Builder.CreateCall(RecordFunc, {AddrCast, Builder.getInt1(isWrite)});
 }
-
 uint64_t HeapProfiler::generateAllocID(DebugLoc &Loc , std::string& LocationStr) {
   static uint64_t next_id = 1;
-  int id = 0;
+  uint64_t id = 0;
   LocationStr = "unknown:0:0";
   if (Loc) {
-    id = hash_combine(  
-        hash_value(Loc->getFilename()),
+    id = my_hash_combine(  
+        fnv1a_hash(Loc->getFilename()),
         Loc.getLine(),
         Loc.getCol());
     LocationStr = Loc->getFilename().str() + ":" + 
                std::to_string(Loc.getLine()) + ":" + 
                std::to_string(Loc.getCol());
+               errs()<<LocationStr<<"  "<<id<<"\n";
   }
   return id ? id : next_id++;
 }

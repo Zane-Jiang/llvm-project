@@ -2308,10 +2308,8 @@ PassBuilder::buildO0DefaultPipeline(OptimizationLevel Level,
   char *env = getenv("CLANG_MODE");
   if(env){
       if(0 == strcmp(env, "INSTRUMENT")){
-        errs()<<"[LLVM O0]CLANG_PGO_MODE : instrument\n";
         MPM.addPass(HeapProfiler());
       }else if( 0 == strcmp(env, "OPTIMIZE")){
-        errs()<<"[LLVM O0]CLANG_PGO_MODE : optimize\n";
         MPM.addPass(HeapAllocOptimizer());
       }
   }
