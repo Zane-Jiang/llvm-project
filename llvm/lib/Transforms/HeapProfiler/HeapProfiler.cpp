@@ -167,7 +167,7 @@ uint64_t HeapProfiler::generateAllocID(DebugLoc &Loc , std::string& LocationStr)
     LocationStr = Loc->getFilename().str() + ":" + 
                std::to_string(Loc.getLine()) + ":" + 
                std::to_string(Loc.getCol());
-               errs()<<LocationStr<<"  "<<id<<"\n";
+              //  errs()<<LocationStr<<"  "<<id<<"\n";
   }
   return id ? id : next_id++;
 }

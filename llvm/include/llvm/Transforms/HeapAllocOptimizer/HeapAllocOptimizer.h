@@ -27,7 +27,7 @@ using HeapAccessMap = std::unique_ptr<llvm::DenseMap<uint64_t, std::unique_ptr<S
     double ddr_write_lat;  
     double cxl_read_lat;   
     double cxl_write_lat; 
-    double ddr_capacity;
+    double ddr_capacity_MB;
   };
     struct HeapAllocOptimizer : public PassInfoMixin<HeapAllocOptimizer> {
 public:

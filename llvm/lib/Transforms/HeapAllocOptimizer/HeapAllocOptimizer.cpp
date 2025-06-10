@@ -25,7 +25,7 @@ static inline bool read_memory_params(const std::string& config_path,MemoryParam
         {"ddr_write_lat", &params.ddr_write_lat},
         {"cxl_read_lat", &params.cxl_read_lat},
         {"cxl_write_lat", &params.cxl_write_lat},
-        {"ddr_capacity",&params.ddr_capacity}
+        {"ddr_capacity_MB",&params.ddr_capacity_MB}
     };
     
     std::string line;
@@ -70,7 +70,7 @@ PreservedAnalyses HeapAllocOptimizer::run(Module &M, ModuleAnalysisManager &AM) 
         if (auto *CI = dyn_cast<CallBase>(&I)) {
           if (Function *Callee = CI->getCalledFunction()) {
             StringRef Name = Callee->getName();
-            if (Name.contains("malloc") || Name.contains("calloc") || Name.contains("realloc")) {
+            if (Name.contains("malloc") || Name.contains("calloc") || Name.contains("realloc") || Name.contains("free")) {
               ToReplace.push_back(CI);
             }
           }
@@ -95,8 +95,8 @@ bool HeapAllocOptimizer::allocStrategy()
   auto sortedVars = std::make_unique<std::vector<std::pair<uint64_t, SHeapVar*>>>();
   sortedVars->reserve(m_pAccessMap->size());
   for (auto &[id, var] : *m_pAccessMap) {
-    var->cost = var->read_count * (params.cxl_read_lat - params.ddr_read_lat) +
-                var->write_count * (params.cxl_write_lat - params.ddr_write_lat);
+    var->cost = 0.0001 *  var->read_count * (params.cxl_read_lat - params.ddr_read_lat) +
+                0.0001 *  var->write_count * (params.cxl_write_lat - params.ddr_write_lat);
     var->byte_cost = (var->size > 0) ? var->cost / var->size : 0;
     sortedVars->emplace_back(id, var.get());
   }
@@ -105,16 +105,17 @@ bool HeapAllocOptimizer::allocStrategy()
     [](const auto &a, const auto &b) {
       return a.second->byte_cost > b.second->byte_cost;
     });
-
-  
   uint64_t usedCapacity = 0;
+  errs()<<"location     "<<"size   " <<"read count  "<<"write count    "<<"byte cost     is local\n" ;
+  uint64_t ddr_capacity_B = params.ddr_capacity_MB * 1024;
   for (auto &[id, var] : *sortedVars) {
-    if (usedCapacity + var->size <= params.ddr_capacity*0.8) {
+    if (usedCapacity + var->size <= ddr_capacity_B*0.8) {
       (*m_pAccessMap)[id]->bLocal = true;
       usedCapacity += var->size;
     } else {
       (*m_pAccessMap)[id]->bLocal = false;
     }
+    errs()<<var->location<<"  "<<var->size <<"   " <<var->read_count<<"  "<<var->write_count<<"  "<<var->byte_cost<<"   "<<(*m_pAccessMap)[id]->bLocal<<"\n" ;
   }
   return true;
 }
@@ -146,6 +147,9 @@ StringRef HeapAllocOptimizer::selectAllocator(CallBase *CI) const {
     return "";
   }
   StringRef Name = Callee->getName();
+  if(Name.contains("free")){
+      return "hfree";
+  }
   //todo add alloc support
   if(m_pAccessMap == nullptr || m_pAccessMap->find(ID) == m_pAccessMap->end())
   {
@@ -156,8 +160,11 @@ StringRef HeapAllocOptimizer::selectAllocator(CallBase *CI) const {
     }
     return "";
   }
-
-  errs()<<"find: "<<ID <<"\n";
+  //todo temp solve for hfree
+  if(Name.contains("calloc")){
+      return "hcalloc";
+  }
+  
   if(!(*m_pAccessMap)[ID]->bLocal){
     if(Name.contains("malloc")){
       return "hmalloc";
@@ -206,10 +213,10 @@ uint64_t HeapAllocOptimizer::generateAllocID(const DebugLoc &Loc) const {
         fnv1a_hash(Loc->getFilename()),
         Loc.getLine(),
         Loc.getCol());
-        std::string   LocationStr = Loc->getFilename().str() + ":" + 
-               std::to_string(Loc.getLine()) + ":" + 
-               std::to_string(Loc.getCol());
-               errs()<<LocationStr<<"  "<<id<<"\n";
+        // std::string   LocationStr = Loc->getFilename().str() + ":" + 
+        //        std::to_string(Loc.getLine()) + ":" + 
+        //        std::to_string(Loc.getCol());
+        //        errs()<<LocationStr<<"  "<<id<<"\n";
   }
   return id ? id : next_id++;
 }

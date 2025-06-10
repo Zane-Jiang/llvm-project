@@ -4,9 +4,9 @@
 #include <cstring>
 #include <mutex>
 #include <map>
-#include <unordered_map>
 #include <thread>
 #include <vector>
+#include <atomic>
 
 static FILE* log_file = nullptr;
 int var_count = 0;
@@ -28,23 +28,23 @@ typedef struct {
     uint64_t size;
     uint64_t id;
     char location[128];
-    uint64_t read_count;
-    uint64_t write_count;
+    std::atomic<uint64_t> read_count;
+    std::atomic<uint64_t> write_count;
 } MemoryBlock;
 
 static std::map<uintptr_t, MemoryBlock> memory_tree;
 static std::mutex mtx;
 
-// thread-local addr -> (read_cnt, write_cnt)
-thread_local std::unordered_map<uintptr_t, std::pair<uint64_t, uint64_t>> access_cache;
-
-static std::vector<std::unordered_map<uintptr_t, std::pair<uint64_t, uint64_t>>*> all_access_caches;
-static std::mutex access_caches_mtx;
 
 void* __heap_profile_register(void* ptr, uint64_t size, uint64_t id, const char* location) {
     std::lock_guard<std::mutex> lock(mtx);
     uintptr_t addr = reinterpret_cast<uintptr_t>(ptr);
-    MemoryBlock block;
+    
+    // 使用emplace构造对象，避免拷贝
+    auto result = memory_tree.emplace(std::piecewise_construct,
+                                    std::forward_as_tuple(addr),
+                                    std::forward_as_tuple());
+    MemoryBlock& block = result.first->second;
     block.ptr = ptr;
     block.size = size;
     block.id = id;
@@ -52,35 +52,27 @@ void* __heap_profile_register(void* ptr, uint64_t size, uint64_t id, const char*
     block.write_count = 0;
     var_count++;
     snprintf(block.location, sizeof(block.location), "%s", location ? location : "unknown");
-    memory_tree[addr] = block;
-    
-    {
-        std::lock_guard<std::mutex> lock(access_caches_mtx);
-        all_access_caches.push_back(&access_cache);
-    }
     
     return ptr;
 }
 
+
 void* __heap_profile_record_access(void* ptr, bool is_write) {
     uintptr_t addr = reinterpret_cast<uintptr_t>(ptr);
-    auto& stat = access_cache[addr];
-    if (is_write) stat.second++;
-    else stat.first++;
-
-    if ((stat.first + stat.second) >= 1024) {
-        std::lock_guard<std::mutex> lock(mtx);
-        auto it = memory_tree.upper_bound(addr);
-        if (it != memory_tree.begin()) {
-            --it;
-            uintptr_t block_start = it->first;
-            uintptr_t block_end = block_start + it->second.size;
-            if (addr >= block_start && addr < block_end) {
-                it->second.read_count += stat.first;
-                it->second.write_count += stat.second;
+    std::lock_guard<std::mutex> lock(mtx);
+    // 查找包含该地址的内存块
+    auto it = memory_tree.upper_bound(addr);
+    if (it != memory_tree.begin()) {
+        --it;
+        uintptr_t block_start = it->first;
+        uintptr_t block_end = block_start + it->second.size;
+        if (addr >= block_start && addr < block_end) {
+            if (is_write) {
+                it->second.write_count.fetch_add(1, std::memory_order_relaxed);
+            } else {
+                it->second.read_count.fetch_add(1, std::memory_order_relaxed);
             }
         }
-        stat = {0, 0}; 
     }
     return ptr;
 }
@@ -96,39 +88,16 @@ void __heap_profile_unregister(void* ptr) {
                     it->second.ptr,
                     it->second.location,
                     it->second.size,
-                    it->second.read_count,
-                    it->second.write_count);
+                    it->second.read_count.load(),
+                    it->second.write_count.load());
         }
         memory_tree.erase(it);
-    }
-}
-
-static void merge_thread_local_access_counts() {
-    std::lock_guard<std::mutex> lock(access_caches_mtx);
-    for (auto* cache : all_access_caches) {
-        for (const auto& entry : *cache) {
-            uintptr_t addr = entry.first;
-            uint64_t read_count = entry.second.first;
-            uint64_t write_count = entry.second.second;
-            
-            auto it = memory_tree.upper_bound(addr);
-            if (it != memory_tree.begin()) {
-                --it;
-                uintptr_t block_start = it->first;
-                uintptr_t block_end = block_start + it->second.size;
-                if (addr >= block_start && addr < block_end) {
-                    it->second.read_count += read_count;
-                    it->second.write_count += write_count;
-                }
-            }
-        }
     }
 }
 
 static void output_final_stats() __attribute__((destructor));
 static void output_final_stats() {
     std::lock_guard<std::mutex> lock(mtx);
-    merge_thread_local_access_counts();
     
     if (log_file) {
         for (const auto& pair : memory_tree) {
@@ -138,8 +107,8 @@ static void output_final_stats() {
                     block.ptr,
                     block.location,
                     block.size,
-                    block.read_count,
-                    block.write_count);
+                    block.read_count.load(),
+                    block.write_count.load());
         }
         fprintf(log_file, "var count %d\n", var_count);
         fflush(log_file);
