@@ -147,9 +147,22 @@ StringRef HeapAllocOptimizer::selectAllocator(CallBase *CI) const {
     return "";
   }
   StringRef Name = Callee->getName();
-  if(Name.contains("free")){
-      return "hfree";
+  
+  if (Name.contains("free")) {
+    Value *PtrToFree = CI->getArgOperand(0);
+    for (User *U : PtrToFree->users()) {
+      if (auto *CB = dyn_cast<CallBase>(U)) {
+        if (Function *Allocator = CB->getCalledFunction()) {
+          StringRef AllocName = Allocator->getName();
+          if (AllocName == "hmalloc" || AllocName == "hcalloc" || AllocName == "hrealloc") {
+            return "hfree";
+          }
+        }
+      }
+    }
+    return "";
   }
+
   //todo add alloc support
   if(m_pAccessMap == nullptr || m_pAccessMap->find(ID) == m_pAccessMap->end())
   {
