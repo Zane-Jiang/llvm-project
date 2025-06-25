@@ -17,7 +17,7 @@ using namespace llvm;
 static inline bool read_memory_params(const std::string& config_path,MemoryParams& params) {
     std::ifstream infile(config_path);
     if (!infile.is_open()) {
-        errs()<<"Failed to open memory parameters file: " + config_path;
+        errs()<<"Failed to open memory parameters file: " + config_path+"\n";
         return false;
     }
     std::map<std::string, double*> param_map = {
@@ -57,21 +57,35 @@ static inline bool read_memory_params(const std::string& config_path,MemoryParam
 
 PreservedAnalyses HeapAllocOptimizer::run(Module &M, ModuleAnalysisManager &AM) {
   if (!loadProfileDataFromTxt()) {
-    errs()<<"Load Proffile falied, skip cxl place optimize ";
+    errs()<<"Load Proffile falied, skip cxl place optimize \n";
     return PreservedAnalyses::all();
   }
   if(!allocStrategy()){
     return PreservedAnalyses::all();
   }
-  std::vector<CallBase*> ToReplace;
+  m_AllocatorReplaceMap = {
+    {"malloc", "hmalloc"},
+    {"calloc", "hcalloc"},
+    {"realloc", "hrealloc"},
+    {"aligned_alloc","haligned_alloc"},
+    {"posix_memalign", "hposix_memalign"},
+    {"mmap", "hmmap"},
+  };
+
+  m_HelperReplaceMap = {
+    {"free", "hfree"},
+    {"munmap", "hmunmap"},
+    {"malloc_usable_size", "hmalloc_usable_size"},
+  };
+  std::vector<CallBase*> ToReplaceAllocator;
   for (Function &F : M) {
     for (BasicBlock &BB : F) {
       for (Instruction &I : BB) {
         if (auto *CI = dyn_cast<CallBase>(&I)) {
           if (Function *Callee = CI->getCalledFunction()) {
             StringRef Name = Callee->getName();
-            if (Name.contains("malloc") || Name.contains("calloc") || Name.contains("realloc") || Name.contains("free")) {
-              ToReplace.push_back(CI);
+            if(m_AllocatorReplaceMap.count(Name)){
+              ToReplaceAllocator.push_back(CI);
             }
           }
         }
@@ -79,7 +93,7 @@ PreservedAnalyses HeapAllocOptimizer::run(Module &M, ModuleAnalysisManager &AM) 
     }
   }
 
-  for (CallBase* CI : ToReplace) {
+  for (CallBase* CI : ToReplaceAllocator) {
     replaceAllocator(CI, *CI->getModule());
   }
   return PreservedAnalyses::none();
@@ -106,7 +120,7 @@ bool HeapAllocOptimizer::allocStrategy()
       return a.second->byte_cost > b.second->byte_cost;
     });
   uint64_t usedCapacity = 0;
-  errs()<<"location     "<<"size   " <<"read count  "<<"write count    "<<"byte cost     is local\n" ;
+  // errs()<<"location     "<<"size   " <<"read count  "<<"write count    "<<"byte cost     is local\n" ;
   uint64_t ddr_capacity_B = params.ddr_capacity_MB * 1024;
   for (auto &[id, var] : *sortedVars) {
     if (usedCapacity + var->size <= ddr_capacity_B*0.8) {
@@ -115,7 +129,7 @@ bool HeapAllocOptimizer::allocStrategy()
     } else {
       (*m_pAccessMap)[id]->bLocal = false;
     }
-    errs()<<var->location<<"  "<<var->size <<"   " <<var->read_count<<"  "<<var->write_count<<"  "<<var->byte_cost<<"   "<<(*m_pAccessMap)[id]->bLocal<<"\n" ;
+    // errs()<<var->location<<"  "<<var->size <<"   " <<var->read_count<<"  "<<var->write_count<<"  "<<var->byte_cost<<"   "<<(*m_pAccessMap)[id]->bLocal<<"\n" ;
   }
   return true;
 }
@@ -140,54 +154,27 @@ bool HeapAllocOptimizer::loadProfileDataFromTxt() {
 }
 
 StringRef HeapAllocOptimizer::selectAllocator(CallBase *CI) const {
-  uint64_t ID = generateAllocID(CI->getDebugLoc());
+  std::string  localStr;
+  uint64_t ID = generateAllocID(CI->getDebugLoc(),localStr);
   Function *Callee = nullptr;
   Callee = CI->getCalledFunction();
   if (Callee == nullptr){
     return "";
   }
   StringRef Name = Callee->getName();
-  
-  if (Name.contains("free")) {
-    Value *PtrToFree = CI->getArgOperand(0);
-    for (User *U : PtrToFree->users()) {
-      if (auto *CB = dyn_cast<CallBase>(U)) {
-        if (Function *Allocator = CB->getCalledFunction()) {
-          StringRef AllocName = Allocator->getName();
-          if (AllocName == "hmalloc" || AllocName == "hcalloc" || AllocName == "hrealloc") {
-            return "hfree";
-          }
-        }
-      }
-    }
-    return "";
-  }
-
   //todo add alloc support
   if(m_pAccessMap == nullptr || m_pAccessMap->find(ID) == m_pAccessMap->end())
   {
     if(m_pAccessMap == nullptr){
         errs()<<"m_pAccessMap == nullptr\n";
     }else{
-      // errs()<<"not find "<<ID <<"\n";
+      // errs()<<"select Allocator not find "<<ID <<"\n";
     }
     return "";
   }
-  //todo temp solve for hfree
-  if(Name.contains("calloc")){
-      return "hcalloc";
-  }
-  
+
   if(!(*m_pAccessMap)[ID]->bLocal){
-    if(Name.contains("malloc")){
-      return "hmalloc";
-    }else if(Name.contains("calloc")){
-      return "hcalloc";
-    }else if(Name.contains("realloc")){
-      return "hrealloc";
-    }else{
-      return "";
-    }
+    return  m_AllocatorReplaceMap.at(Name);
   }else{
     return "";
   }
@@ -198,8 +185,11 @@ void HeapAllocOptimizer::replaceAllocator(CallBase *CI, Module &M) const {
   if(NewAlloc.empty()){
     return ;
   }else{
-    // errs()<<NewAlloc;
+      std::string  localStr;
+      generateAllocID(CI->getDebugLoc(),localStr);
+      errs()<<"[releace]"<<localStr<<"  : "<<NewAlloc<<"\n";
   }
+  replaceFreeForAllocation(CI, M, NewAlloc.str());
   IRBuilder<> Builder(CI);
   FunctionType *FTy = CI->getFunctionType();
   Function *NewFunc = M.getFunction(NewAlloc);
@@ -216,9 +206,97 @@ void HeapAllocOptimizer::replaceAllocator(CallBase *CI, Module &M) const {
   CallInst *NewCall = Builder.CreateCall(FTy, NewFunc, Args);
   CI->replaceAllUsesWith(NewCall);
   CI->eraseFromParent();
+
 }
 
-uint64_t HeapAllocOptimizer::generateAllocID(const DebugLoc &Loc) const {
+void HeapAllocOptimizer::replaceFreeForAllocation(Value *Allocation, Module &M, const std::string &AllocType) const {
+    SmallVector<Value*, 16> Worklist;
+    SmallPtrSet<Value*, 32> Visited;
+    
+    Worklist.push_back(Allocation);
+    Visited.insert(Allocation);
+    while (!Worklist.empty()) {
+        Value *Current = Worklist.pop_back_val();
+        for (User *U : Current->users()) {
+            if (Visited.count(U)) continue;
+            Visited.insert(U);
+
+            if (auto *FreeCall = dyn_cast<CallBase>(U)) {
+                if (Function *Callee = FreeCall->getCalledFunction()) {
+                    if (Callee->getName() == "free" && FreeCall->getArgOperand(0) == Current && (AllocType == "hmalloc" || AllocType == "hcalloc" || AllocType == "hrealloc" || AllocType == "haligned_alloc" || AllocType == "hposix_memalign")) {
+                        IRBuilder<> Builder(FreeCall);
+                        Function *HFreeFunc = M.getFunction("hfree");
+                        if (!HFreeFunc) {
+                          Type* Int8PtrTy = PointerType::get(Type::getInt8Ty(M.getContext()), 0);
+                          FunctionType *FreeFTy = FunctionType::get(
+                            Type::getVoidTy(M.getContext()), 
+                            {Int8PtrTy}, 
+                            false
+                          );
+                          HFreeFunc = Function::Create(FreeFTy, GlobalValue::ExternalLinkage, "hfree", M);
+                          HFreeFunc->setDoesNotThrow();
+                        }
+                        Value *Ptr = FreeCall->getArgOperand(0);
+                        CallInst *NewCall = Builder.CreateCall(HFreeFunc, {Ptr});
+                        NewCall->setDebugLoc(FreeCall->getDebugLoc());
+                        FreeCall->eraseFromParent();
+                        break;
+                    } else if (Callee->getName() == "free" && FreeCall->getArgOperand(0) == Current && AllocType == "hmmap") {
+                        IRBuilder<> Builder(FreeCall);
+                        Function *HUnmapFunc = M.getFunction("hmunmap");
+                        if (!HUnmapFunc) {
+                          Type* Int8PtrTy = PointerType::get(Type::getInt8Ty(M.getContext()), 0);
+                          FunctionType *UnmapFTy = FunctionType::get(
+                            Type::getVoidTy(M.getContext()), 
+                            {Int8PtrTy}, 
+                            false
+                          );
+                          HUnmapFunc = Function::Create(UnmapFTy, GlobalValue::ExternalLinkage, "hmunmap", M);
+                          HUnmapFunc->setDoesNotThrow();
+                        }
+                        Value *Ptr = FreeCall->getArgOperand(0);
+                        CallInst *NewCall = Builder.CreateCall(HUnmapFunc, {Ptr});
+                        NewCall->setDebugLoc(FreeCall->getDebugLoc());
+                        FreeCall->eraseFromParent();
+                        break;
+                    }
+                }
+            } else if (isa<BitCastInst>(U) || isa<AddrSpaceCastInst>(U)) {
+                Worklist.push_back(U);
+            } else if (auto *GEP = dyn_cast<GetElementPtrInst>(U)) {
+                if (all_of(GEP->indices(), [](Value *Idx) {
+                        return isa<ConstantInt>(Idx) && 
+                               cast<ConstantInt>(Idx)->isZero();
+                    })) {
+                    Worklist.push_back(GEP);
+                }
+            } else if (auto *Store = dyn_cast<StoreInst>(U)) {
+                Worklist.push_back(Store->getPointerOperand());
+            } else if (auto *Load = dyn_cast<LoadInst>(U)) {
+                Worklist.push_back(Load);
+            } else if (auto *PN = dyn_cast<PHINode>(U)) {
+                Worklist.push_back(PN);
+            } else if (auto *Sel = dyn_cast<SelectInst>(U)) {
+                Worklist.push_back(Sel);
+            } else if (isa<ICmpInst>(U) || isa<ReturnInst>(U) || isa<DbgInfoIntrinsic>(U) || isa<BranchInst>(U)) {
+                continue;
+            } else {
+              // errs() << "=== Unhandled User ===\n";
+              // errs() << "User pointer: " << (void*)U << "\n";
+              // if (auto *I = dyn_cast<Instruction>(U)) {
+                // errs() << "User opcode: " << I->getOpcodeName() << "\n";
+                // I->print(errs());
+              // } else {
+                // U->print(errs());
+              // }
+              // errs() << "----------------------\n";
+              continue;
+            }
+        }
+    }
+}
+
+uint64_t HeapAllocOptimizer::generateAllocID(const DebugLoc &Loc,std::string&   LocationStr) const {
   static uint64_t next_id = 1;
   uint64_t id = 0;
   if (Loc) {
@@ -226,10 +304,12 @@ uint64_t HeapAllocOptimizer::generateAllocID(const DebugLoc &Loc) const {
         fnv1a_hash(Loc->getFilename()),
         Loc.getLine(),
         Loc.getCol());
-        // std::string   LocationStr = Loc->getFilename().str() + ":" + 
-        //        std::to_string(Loc.getLine()) + ":" + 
-        //        std::to_string(Loc.getCol());
-        //        errs()<<LocationStr<<"  "<<id<<"\n";
+        LocationStr = Loc->getFilename().str() + ":" + 
+               std::to_string(Loc.getLine()) + ":" + 
+               std::to_string(Loc.getCol());
+        // errs()<<LocationStr<<"  "<<id<<"\n";
+  }else{
+    errs()<<"no id "<<id<<"\n";
   }
   return id ? id : next_id++;
 }

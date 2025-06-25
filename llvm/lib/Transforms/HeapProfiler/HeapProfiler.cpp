@@ -22,9 +22,9 @@ PreservedAnalyses HeapProfiler::run(Module &M, ModuleAnalysisManager &) {
         if (auto *CI = dyn_cast<CallBase>(&I)) {
           if (Function *Callee = CI->getCalledFunction()) {
             StringRef Name = Callee->getName();
-            if (Name.contains("malloc") || Name.contains("calloc") || Name.contains("realloc")) {
+            if (Name == "malloc"||Name == "calloc" || Name ==  "realloc" || Name == "posix_memalign") {
               allocCalls.push_back(CI);
-            } else if (Name == "free") {
+            } else if (Name == "free"|| Name == "hmunmap" ) {
               freeCalls.push_back(CI);
             }
           }

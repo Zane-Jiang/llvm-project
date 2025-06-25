@@ -1,6 +1,7 @@
 #ifndef LLVM_TRANSFORMS_HEAPPROFILER_HEAPALLOCOPTIMIZER_H
 #define LLVM_TRANSFORMS_HEAPPROFILER_HEAPALLOCOPTIMIZER_H
 #include "llvm/IR/PassManager.h"
+#include "llvm/ADT/DenseMap.h"
 namespace llvm{
     struct SHeapVar {
     uint64_t id;
@@ -37,10 +38,14 @@ public:
 private:
   StringRef selectAllocator(CallBase *CI) const;
   void replaceAllocator(CallBase *CI, Module &M) const;
+  void replaceFreeForAllocation(Value *Allocation, Module &M, const std::string &AllocType) const;
+
   bool loadProfileDataFromTxt();
   bool allocStrategy();
-  uint64_t generateAllocID(const DebugLoc &Loc) const;
+  uint64_t generateAllocID(const DebugLoc &Loc,std::string& ) const;
   HeapAccessMap  m_pAccessMap;
+  DenseMap<StringRef, StringRef> m_AllocatorReplaceMap ; 
+  DenseMap<StringRef, StringRef> m_HelperReplaceMap ; 
 };
 } // namespace
 
