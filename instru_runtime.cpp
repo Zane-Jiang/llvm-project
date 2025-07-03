@@ -30,7 +30,9 @@ struct ProfFileCleaner {
             }
         }
         
-        log_file = fopen("heap.prof", "w");
+        const char* prof_env = getenv("HEAP_PROF_PATH");
+        const char* prof_path = prof_env ? prof_env : "heap.prof";
+        log_file = fopen(prof_path, "w");
         if (log_file) {
             fprintf(log_file, "=== Final Statistics (Sampling Rate: 1/%u) ===\n", g_sampling_interval);
             fprintf(log_file, "id | ptr | location | size | read_count | write_count\n");

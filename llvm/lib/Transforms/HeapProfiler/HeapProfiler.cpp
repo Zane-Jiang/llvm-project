@@ -22,9 +22,11 @@ PreservedAnalyses HeapProfiler::run(Module &M, ModuleAnalysisManager &) {
         if (auto *CI = dyn_cast<CallBase>(&I)) {
           if (Function *Callee = CI->getCalledFunction()) {
             StringRef Name = Callee->getName();
-            if (Name == "malloc"||Name == "calloc" || Name ==  "realloc" || Name == "posix_memalign") {
+            if (Name == "malloc" || Name == "calloc" || Name ==  "realloc" || Name == "posix_memalign"
+                || Name == "_Znwm" || Name == "_Znam") {
               allocCalls.push_back(CI);
-            } else if (Name == "free"|| Name == "hmunmap" ) {
+            } else if (Name == "free" || Name == "hmunmap" 
+                || Name == "_ZdlPv" || Name == "_ZdaPv") {
               freeCalls.push_back(CI);
             }
           }

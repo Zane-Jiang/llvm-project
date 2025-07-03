@@ -70,12 +70,16 @@ PreservedAnalyses HeapAllocOptimizer::run(Module &M, ModuleAnalysisManager &AM) 
     {"aligned_alloc","haligned_alloc"},
     {"posix_memalign", "hposix_memalign"},
     {"mmap", "hmmap"},
+    {"_Znwm", "hmalloc"},
+    {"_Znam", "hmalloc"},
   };
 
   m_HelperReplaceMap = {
     {"free", "hfree"},
     {"munmap", "hmunmap"},
     {"malloc_usable_size", "hmalloc_usable_size"},
+    {"_ZdlPv", "hfree"},
+    {"_ZdaPv", "hfree"},
   };
   std::vector<CallBase*> ToReplaceAllocator;
   for (Function &F : M) {
@@ -102,9 +106,11 @@ PreservedAnalyses HeapAllocOptimizer::run(Module &M, ModuleAnalysisManager &AM) 
 bool HeapAllocOptimizer::allocStrategy()
 {
   MemoryParams params;
- if(!read_memory_params(std::string(getenv("HOME")) + "/.cxl_mem_params.conf",params)){
-  return false;
- }
+  const char* conf_env = getenv("CXL_MEM_PARAMS_CONF");
+  std::string conf_path = conf_env ? std::string(conf_env) : (std::string(getenv("HOME")) + "/.cxl_mem_params.conf");
+  if(!read_memory_params(conf_path, params)){
+    return false;
+  }
 
   auto sortedVars = std::make_unique<std::vector<std::pair<uint64_t, SHeapVar*>>>();
   sortedVars->reserve(m_pAccessMap->size());
@@ -139,7 +145,9 @@ bool HeapAllocOptimizer::loadProfileDataFromTxt() {
   }
   m_pAccessMap->clear();
 
-  std::ifstream infile("heap.prof");
+  const char* prof_env = getenv("HEAP_PROF_PATH");
+  std::string prof_path = prof_env ? std::string(prof_env) : "heap.prof";
+  std::ifstream infile(prof_path);
   if (!infile.is_open()) return false;
   std::string line;
   std::getline(infile, line);
