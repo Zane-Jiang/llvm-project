@@ -234,8 +234,8 @@ void HeapAllocOptimizer::replaceFreeForAllocation(Value *Allocation, Module &M, 
                     if (Callee->getName() == "free" && FreeCall->getArgOperand(0) == Current && (AllocType == "hmalloc" || AllocType == "hcalloc" || AllocType == "hrealloc" || AllocType == "haligned_alloc" || AllocType == "hposix_memalign")) {
                         IRBuilder<> Builder(FreeCall);
                         Function *HFreeFunc = M.getFunction("hfree");
+                        Type* Int8PtrTy = PointerType::get(Type::getInt8Ty(M.getContext()), 0);
                         if (!HFreeFunc) {
-                          Type* Int8PtrTy = PointerType::get(Type::getInt8Ty(M.getContext()), 0);
                           FunctionType *FreeFTy = FunctionType::get(
                             Type::getVoidTy(M.getContext()), 
                             {Int8PtrTy}, 
@@ -245,15 +245,20 @@ void HeapAllocOptimizer::replaceFreeForAllocation(Value *Allocation, Module &M, 
                           HFreeFunc->setDoesNotThrow();
                         }
                         Value *Ptr = FreeCall->getArgOperand(0);
+                        if (!Ptr->getType()->isPointerTy()) {
+                            Ptr = Builder.CreateIntToPtr(Ptr, Int8PtrTy);
+                        } else if (Ptr->getType() != Int8PtrTy) {
+                            Ptr = Builder.CreateBitCast(Ptr, Int8PtrTy);
+                        }
                         CallInst *NewCall = Builder.CreateCall(HFreeFunc, {Ptr});
                         NewCall->setDebugLoc(FreeCall->getDebugLoc());
                         FreeCall->eraseFromParent();
                         break;
                     } else if (Callee->getName() == "free" && FreeCall->getArgOperand(0) == Current && AllocType == "hmmap") {
                         IRBuilder<> Builder(FreeCall);
+                        Type* Int8PtrTy = PointerType::get(Type::getInt8Ty(M.getContext()), 0);
                         Function *HUnmapFunc = M.getFunction("hmunmap");
                         if (!HUnmapFunc) {
-                          Type* Int8PtrTy = PointerType::get(Type::getInt8Ty(M.getContext()), 0);
                           FunctionType *UnmapFTy = FunctionType::get(
                             Type::getVoidTy(M.getContext()), 
                             {Int8PtrTy}, 
@@ -263,6 +268,11 @@ void HeapAllocOptimizer::replaceFreeForAllocation(Value *Allocation, Module &M, 
                           HUnmapFunc->setDoesNotThrow();
                         }
                         Value *Ptr = FreeCall->getArgOperand(0);
+                        if (!Ptr->getType()->isPointerTy()) {
+                            Ptr = Builder.CreateIntToPtr(Ptr, Int8PtrTy);
+                        } else if (Ptr->getType() != Int8PtrTy) {
+                            Ptr = Builder.CreateBitCast(Ptr, Int8PtrTy);
+                        }
                         CallInst *NewCall = Builder.CreateCall(HUnmapFunc, {Ptr});
                         NewCall->setDebugLoc(FreeCall->getDebugLoc());
                         FreeCall->eraseFromParent();

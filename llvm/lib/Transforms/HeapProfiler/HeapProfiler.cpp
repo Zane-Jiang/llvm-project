@@ -46,9 +46,18 @@ PreservedAnalyses HeapProfiler::run(Module &M, ModuleAnalysisManager &) {
 
 void HeapProfiler::instrumentAlloc(CallBase *CI, Module &M) {
   IRBuilder<> Builder(CI->getNextNode() ? CI->getNextNode() : CI);
+  if (auto *Invoke = dyn_cast<InvokeInst>(CI)) {
+    BasicBlock *normalDest = Invoke->getNormalDest();
+    Builder.SetInsertPoint(&*normalDest->getFirstInsertionPt());
+  }
   LLVMContext &Ctx = M.getContext();
   Type* Int8PtrTy = PointerType::get(Type::getInt8Ty(Ctx), 0);
-  Value *Ptr = Builder.CreateBitCast(CI, Int8PtrTy);
+  Value *Ptr = CI;
+  if (!Ptr->getType()->isPointerTy()) {
+    Ptr = Builder.CreateIntToPtr(Ptr, Int8PtrTy);
+  } else if (Ptr->getType() != Int8PtrTy) {
+    Ptr = Builder.CreateBitCast(Ptr, Int8PtrTy);
+  }
 
   if (CI->arg_size() < 1) {
     errs() << "instrumentAlloc: not enough arguments!\n";
