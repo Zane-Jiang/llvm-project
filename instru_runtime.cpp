@@ -6,8 +6,12 @@
 #include <unordered_map>
 #include <atomic>
 #include <chrono>
+#include <iostream>
+#include <thread> 
 
+extern "C" {
 static FILE* log_file = nullptr;
+
 
 struct ProfFileCleaner {
     ProfFileCleaner() {
@@ -22,7 +26,7 @@ struct ProfFileCleaner {
 };
 static ProfFileCleaner profFileCleaner;
 
-extern "C" {
+
 
 struct MemoryBlock {
     void* ptr;
@@ -33,17 +37,39 @@ struct MemoryBlock {
     uint64_t free_ts;
 };
 
-static std::unordered_map<uintptr_t, MemoryBlock> memory_tree;
-static std::mutex mtx;
-
 static uint64_t get_timestamp() {
     using namespace std::chrono;
     return duration_cast<milliseconds>(steady_clock::now().time_since_epoch()).count();
 }
 
+static std::mutex& get_mtx() {
+    static std::mutex mtx;
+    return mtx;
+}
+
+//递归重入保护
+static thread_local bool in_hook = false;
+
+static void output_final_stats() ;
+struct MemoryTreeWithDtor : public std::unordered_map<uintptr_t, MemoryBlock> {
+    ~MemoryTreeWithDtor() {
+        output_final_stats();
+        fprintf(stderr, "[memory_tree] destructor called, size=%zu, addr=%p\n", this->size(), this);
+        fflush(stderr);
+    }
+};
+
+static MemoryTreeWithDtor& get_memory_tree() {
+    static MemoryTreeWithDtor memory_tree;
+    return memory_tree;
+}
+
 void* __heap_profile_register(void* ptr, uint64_t size, uint64_t id, const char* location) {
-    if (!ptr) return ptr;
-    std::lock_guard<std::mutex> lock(mtx);
+    if (in_hook) return ptr;
+    in_hook = true;
+    if (!ptr) { in_hook = false; return ptr; }
+    std::lock_guard<std::mutex> lock(get_mtx());
+    auto& memory_tree = get_memory_tree();
     uintptr_t addr = reinterpret_cast<uintptr_t>(ptr);
     auto& block = memory_tree[addr];
     block.ptr = ptr;
@@ -52,19 +78,25 @@ void* __heap_profile_register(void* ptr, uint64_t size, uint64_t id, const char*
     block.alloc_ts = get_timestamp();
     block.free_ts = 0;
     if (location) {
-        size_t loc_len = std::min<size_t>(strlen(location), sizeof(block.location) - 1);
-        strncpy(block.location, location, loc_len);
+        size_t loc_len = (strlen(location) < sizeof(block.location) - 1) ? strlen(location) : sizeof(block.location) - 1;
+        for (size_t i = 0; i < loc_len; ++i) block.location[i] = location[i];
         block.location[loc_len] = '\0';
     } else {
-        snprintf(block.location, sizeof(block.location), "unknown");
+        const char* unknown = "unknown";
+        for (size_t i = 0; i < sizeof(block.location) - 1 && unknown[i]; ++i) block.location[i] = unknown[i];
+        block.location[sizeof(block.location) - 1] = '\0';
     }
+    in_hook = false;
     return ptr;
 }
 
 void __heap_profile_unregister(void* ptr) {
-    if (!ptr) return;
+    if (in_hook) return;
+    in_hook = true;
+    if (!ptr) { in_hook = false; return; }
+    std::lock_guard<std::mutex> lock(get_mtx());
     uintptr_t addr = reinterpret_cast<uintptr_t>(ptr);
-    std::lock_guard<std::mutex> lock(mtx);
+    auto& memory_tree = get_memory_tree();
     auto it = memory_tree.find(addr);
     if (it != memory_tree.end()) {
         it->second.free_ts = get_timestamp();
@@ -80,11 +112,14 @@ void __heap_profile_unregister(void* ptr) {
         }
         memory_tree.erase(it);
     }
+    in_hook = false;
 }
 
-static void output_final_stats() __attribute__((destructor));
 static void output_final_stats() {
-    std::lock_guard<std::mutex> lock(mtx);
+    std::lock_guard<std::mutex> lock(get_mtx());
+    auto& memory_tree = get_memory_tree();
+    fprintf(stderr, "output_final_stats called, memory_tree size=%zu\n", memory_tree.size());
+    fflush(stderr);
     if (log_file) {
         for (const auto& pair : memory_tree) {
             const MemoryBlock& block = pair.second;
