@@ -3,7 +3,7 @@
 #include "llvm/Passes/PassPlugin.h"
 #include "llvm/ProfileData/InstrProf.h"
 #include "llvm/Transforms/Utils/ModuleUtils.h"
-#include "llvm/Transforms/HeapProfiler/My_hash.h"
+#include "llvm/Transforms/Utils/HeapVarIDUtil.h"
 #include "llvm/Transforms/HeapAllocOptimizer/HeapAllocOptimizer.h"
 #include "llvm/Analysis/BlockFrequencyInfo.h"
 #include "llvm/Analysis/BranchProbabilityInfo.h"
@@ -163,7 +163,7 @@ bool HeapAllocOptimizer::loadProfileDataFromTxt() {
 
 StringRef HeapAllocOptimizer::selectAllocator(CallBase *CI) const {
   std::string  localStr;
-  uint64_t ID = generateAllocID(CI->getDebugLoc(),localStr);
+  uint64_t ID = heapid::generateAllocID(CI->getDebugLoc(), localStr, CI->getParent(), *CI->getFunction());
   Function *Callee = nullptr;
   Callee = CI->getCalledFunction();
   if (Callee == nullptr){
@@ -194,7 +194,7 @@ void HeapAllocOptimizer::replaceAllocator(CallBase *CI, Module &M) const {
     return ;
   }else{
       std::string  localStr;
-      generateAllocID(CI->getDebugLoc(),localStr);
+      heapid::generateAllocID(CI->getDebugLoc(), localStr, CI->getParent(), *CI->getFunction());
       errs()<<"[releace]"<<localStr<<"  : "<<NewAlloc<<"\n";
   }
   replaceFreeForAllocation(CI, M, NewAlloc.str());
@@ -312,24 +312,6 @@ void HeapAllocOptimizer::replaceFreeForAllocation(Value *Allocation, Module &M, 
             }
         }
     }
-}
-
-uint64_t HeapAllocOptimizer::generateAllocID(const DebugLoc &Loc,std::string&   LocationStr) const {
-  static uint64_t next_id = 1;
-  uint64_t id = 0;
-  if (Loc) {
-    id = my_hash_combine(  
-        fnv1a_hash(Loc->getFilename()),
-        Loc.getLine(),
-        Loc.getCol());
-        LocationStr = Loc->getFilename().str() + ":" + 
-               std::to_string(Loc.getLine()) + ":" + 
-               std::to_string(Loc.getCol());
-        // errs()<<LocationStr<<"  "<<id<<"\n";
-  }else{
-    errs()<<"no id "<<id<<"\n";
-  }
-  return id ? id : next_id++;
 }
 
 extern "C" LLVM_ATTRIBUTE_WEAK PassPluginLibraryInfo llvmGetPassPluginInfo() {

@@ -54,7 +54,7 @@ static void output_final_stats() ;
 struct MemoryTreeWithDtor : public std::unordered_map<uintptr_t, MemoryBlock> {
     ~MemoryTreeWithDtor() {
         output_final_stats();
-        fprintf(stderr, "[memory_tree] destructor called, size=%zu, addr=%p\n", this->size(), this);
+        // fprintf(stderr, "[memory_tree] destructor called, size=%zu, addr=%p\n", this->size(), this);
         fflush(stderr);
     }
 };
@@ -118,7 +118,7 @@ void __heap_profile_unregister(void* ptr) {
 static void output_final_stats() {
     std::lock_guard<std::mutex> lock(get_mtx());
     auto& memory_tree = get_memory_tree();
-    fprintf(stderr, "output_final_stats called, memory_tree size=%zu\n", memory_tree.size());
+    // fprintf(stderr, "output_final_stats called, memory_tree size=%zu\n", memory_tree.size());
     fflush(stderr);
     if (log_file) {
         for (const auto& pair : memory_tree) {

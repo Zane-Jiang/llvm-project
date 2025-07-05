@@ -13,7 +13,7 @@ private:
   void instrumentAlloc(CallBase *CI, Module &M);
   void instrumentFree(CallBase *I, Module &M);
   void instrumentAccess(Instruction *I, Module &M);
-  uint64_t generateAllocID(DebugLoc &Loc , std::string& LocationStr);
+  uint64_t generateAllocID(DebugLoc &Loc, std::string& LocationStr, llvm::BasicBlock* BB, llvm::Function &F);
 };
 } // namespace
 

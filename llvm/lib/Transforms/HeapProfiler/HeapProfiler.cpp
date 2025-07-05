@@ -7,7 +7,14 @@
 #include "llvm/IR/IRBuilder.h"
 #include "llvm/Transforms/HeapProfiler/HeapProfiler.h"
 #include <string>
-#include "llvm/Transforms/HeapProfiler/My_hash.h"
+#include "llvm/IR/Dominators.h"
+#include <vector>
+#include <algorithm>
+#include "llvm/Support/FileSystem.h"
+#include "llvm/Support/raw_ostream.h"
+#include "llvm/Support/GraphWriter.h"
+#include "llvm/IR/CFG.h"
+#include "llvm/Transforms/Utils/HeapVarIDUtil.h"
 
 using namespace llvm;
 template class llvm::PassInfoMixin<HeapProfiler>;
@@ -83,7 +90,7 @@ void HeapProfiler::instrumentAlloc(CallBase *CI, Module &M) {
 
   DebugLoc Loc = CI->getDebugLoc();
   std::string LocationStr;
-  uint64_t ID = generateAllocID(Loc,LocationStr);
+  uint64_t ID = heapid::generateAllocID(Loc, LocationStr, CI->getParent(), *CI->getFunction());
   Value *LocationStrVal = Builder.CreateGlobalString(LocationStr);
 
   FunctionCallee RegisterFunc = M.getOrInsertFunction(
@@ -126,23 +133,6 @@ void HeapProfiler::instrumentFree(CallBase *CI, Module &M) {
   Builder.CreateCall(UnregisterFunc, {Ptr});
 }
 
-
-uint64_t HeapProfiler::generateAllocID(DebugLoc &Loc , std::string& LocationStr) {
-  static uint64_t next_id = 1;
-  uint64_t id = 0;
-  LocationStr = "unknown:0:0";
-  if (Loc) {
-    id = my_hash_combine(  
-        fnv1a_hash(Loc->getFilename()),
-        Loc.getLine(),
-        Loc.getCol());
-    LocationStr = Loc->getFilename().str() + ":" + 
-               std::to_string(Loc.getLine()) + ":" + 
-               std::to_string(Loc.getCol());
-              //  errs()<<LocationStr<<"  "<<id<<"\n";
-  }
-  return id ? id : next_id++;
-}
 
 extern "C" LLVM_ATTRIBUTE_WEAK PassPluginLibraryInfo llvmGetPassPluginInfo() {
   return {

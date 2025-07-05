@@ -10,4 +10,5 @@ add_llvm_component_library(LLVMHeapAllocOptimizer
   Support
   Demangle      
   IR  
+  TransformUtils
 )
