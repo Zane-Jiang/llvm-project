@@ -5,7 +5,7 @@
 #include <mutex>
 #include <unordered_map>
 #include <atomic>
-#include <chrono>
+#include <time.h>
 #include <iostream>
 #include <thread> 
 
@@ -19,7 +19,7 @@ struct ProfFileCleaner {
         const char* prof_path = prof_env ? prof_env : "heap.prof";
         log_file = fopen(prof_path, "w");
         if (log_file) {
-            fprintf(log_file, "id | ptr | location | size | alloc_ts | free_ts\n");
+            fprintf(log_file, "            id       |           ptr     |           location           | size(Byte)  | alloc_ts | free_ts\n");
             fflush(log_file);
         }
     }
@@ -33,13 +33,14 @@ struct MemoryBlock {
     uint64_t size;
     uint64_t id;
     char location[128];
-    uint64_t alloc_ts;
-    uint64_t free_ts;
+    double alloc_ts;
+    double free_ts;
 };
 
-static uint64_t get_timestamp() {
-    using namespace std::chrono;
-    return duration_cast<milliseconds>(steady_clock::now().time_since_epoch()).count();
+static double get_timestamp() {
+    struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    return ts.tv_sec + ts.tv_nsec / 1e9;
 }
 
 static std::mutex& get_mtx() {
@@ -76,7 +77,7 @@ void* __heap_profile_register(void* ptr, uint64_t size, uint64_t id, const char*
     block.size = size;
     block.id = id;
     block.alloc_ts = get_timestamp();
-    block.free_ts = 0;
+    block.free_ts = -1.0;
     if (location) {
         size_t loc_len = (strlen(location) < sizeof(block.location) - 1) ? strlen(location) : sizeof(block.location) - 1;
         for (size_t i = 0; i < loc_len; ++i) block.location[i] = location[i];
@@ -101,7 +102,7 @@ void __heap_profile_unregister(void* ptr) {
     if (it != memory_tree.end()) {
         it->second.free_ts = get_timestamp();
         if (log_file) {
-            fprintf(log_file, "%lu %p %s %lu %lu %lu\n",
+            fprintf(log_file, "%lu %p %s %lu %.6f %.6f\n",
                     it->second.id,
                     it->second.ptr,
                     it->second.location,
@@ -123,7 +124,7 @@ static void output_final_stats() {
     if (log_file) {
         for (const auto& pair : memory_tree) {
             const MemoryBlock& block = pair.second;
-            fprintf(log_file, "%lu %p %s %lu %lu %lu\n",
+            fprintf(log_file, "%lu %p %s %lu %.6f %.6f\n",
                     block.id,
                     block.ptr,
                     block.location,
