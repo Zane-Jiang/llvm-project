@@ -8,6 +8,7 @@
 #include <time.h>
 #include <iostream>
 #include <thread> 
+#include <limits>
 
 extern "C" {
 static FILE* log_file = nullptr;
@@ -19,7 +20,7 @@ struct ProfFileCleaner {
         const char* prof_path = prof_env ? prof_env : "heap.prof";
         log_file = fopen(prof_path, "w");
         if (log_file) {
-            fprintf(log_file, "            id       |           ptr     |           location           | size(Byte)  | alloc_ts | free_ts\n");
+            fprintf(log_file, "   id       |           ptr     |           location           | size(Byte)  | alloc_ts | free_ts\n");
             fflush(log_file);
         }
     }
@@ -77,7 +78,7 @@ void* __heap_profile_register(void* ptr, uint64_t size, uint64_t id, const char*
     block.size = size;
     block.id = id;
     block.alloc_ts = get_timestamp();
-    block.free_ts = -1.0;
+    block.free_ts = std::numeric_limits<double>::max();
     if (location) {
         size_t loc_len = (strlen(location) < sizeof(block.location) - 1) ? strlen(location) : sizeof(block.location) - 1;
         for (size_t i = 0; i < loc_len; ++i) block.location[i] = location[i];
