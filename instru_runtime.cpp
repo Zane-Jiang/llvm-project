@@ -135,6 +135,7 @@ static void output_final_stats() {
         }
         fflush(log_file);
         fclose(log_file);
+        printf("file saved at %s\n", getenv("HEAP_PROF_PATH"));
     }
 }
 
