@@ -1674,6 +1674,17 @@ PassBuilder::buildPerModuleDefaultPipeline(OptimizationLevel Level,
 
   if (isLTOPreLink(Phase))
     addRequiredLTOPreLinkPasses(MPM);
+
+  
+  char *env = getenv("CLANG_MODE");
+  if(env){
+      if(0 == strcmp(env, "INSTRUMENT")){
+        errs() << "[LLVM passes]INSTRUMENT\n";
+        MPM.addPass(HeapProfiler());
+      }else if( 0 == strcmp(env, "OPTIMIZE")){
+        MPM.addPass(HeapAllocOptimizer());
+      }
+  }
   return MPM;
 }
 
@@ -2304,15 +2315,6 @@ PassBuilder::buildO0DefaultPipeline(OptimizationLevel Level,
     addRequiredLTOPreLinkPasses(MPM);
 
   MPM.addPass(createModuleToFunctionPassAdaptor(AnnotationRemarksPass()));
-
-  char *env = getenv("CLANG_MODE");
-  if(env){
-      if(0 == strcmp(env, "INSTRUMENT")){
-        MPM.addPass(HeapProfiler());
-      }else if( 0 == strcmp(env, "OPTIMIZE")){
-        MPM.addPass(HeapAllocOptimizer());
-      }
-  }
 
   return MPM;
 }

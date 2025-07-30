@@ -14,18 +14,19 @@ extern "C" {
 static FILE* log_file = nullptr;
 
 
-struct ProfFileCleaner {
-    ProfFileCleaner() {
+struct ProfFile {
+    ProfFile() {
         const char* prof_env = getenv("HEAP_PROF_PATH");
         const char* prof_path = prof_env ? prof_env : "heap.prof";
         log_file = fopen(prof_path, "w");
+        printf("prof_env:%s",prof_env);
         if (log_file) {
             fprintf(log_file, "   id       |           ptr     |           location           | size(Byte)  | alloc_ts | free_ts\n");
             fflush(log_file);
         }
     }
 };
-static ProfFileCleaner profFileCleaner;
+static ProfFile f;
 
 
 
