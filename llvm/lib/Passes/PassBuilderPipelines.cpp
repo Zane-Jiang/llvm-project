@@ -1646,7 +1646,15 @@ PassBuilder::buildPerModuleDefaultPipeline(OptimizationLevel Level,
     return buildO0DefaultPipeline(Level, Phase);
 
   ModulePassManager MPM;
-
+  char *env = getenv("CLANG_MODE");
+  if(env){
+      if(0 == strcmp(env, "INSTRUMENT")){
+        errs() << "[LLVM passes]INSTRUMENT\n";
+        MPM.addPass(HeapProfiler());
+      }else if( 0 == strcmp(env, "OPTIMIZE")){
+        MPM.addPass(HeapAllocOptimizer());
+      }
+  }
   // Convert @llvm.global.annotations to !annotation metadata.
   MPM.addPass(Annotation2MetadataPass());
 
@@ -1675,16 +1683,6 @@ PassBuilder::buildPerModuleDefaultPipeline(OptimizationLevel Level,
   if (isLTOPreLink(Phase))
     addRequiredLTOPreLinkPasses(MPM);
 
-  
-  char *env = getenv("CLANG_MODE");
-  if(env){
-      if(0 == strcmp(env, "INSTRUMENT")){
-        errs() << "[LLVM passes]INSTRUMENT\n";
-        MPM.addPass(HeapProfiler());
-      }else if( 0 == strcmp(env, "OPTIMIZE")){
-        MPM.addPass(HeapAllocOptimizer());
-      }
-  }
   return MPM;
 }
 
