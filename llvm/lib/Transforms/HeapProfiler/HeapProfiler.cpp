@@ -30,6 +30,9 @@ PreservedAnalyses HeapProfiler::run(Module &M, ModuleAnalysisManager &) {
             StringRef Name = Callee->getName();
             if (Name == "malloc" || Name == "calloc" || Name ==  "realloc" || Name == "posix_memalign"
                 || Name == "_Znwm" || Name == "_Znam") {
+                  if(Name == "posix_memalign") {
+                    errs() << "posix_memalign: " << CI->getDebugLoc().getLine() << "\n";
+                  }
               allocCalls.push_back(CI);
             } else if (Name == "free" || Name == "hmunmap" 
                 || Name == "_ZdlPv" || Name == "_ZdaPv") {
@@ -79,6 +82,18 @@ void HeapProfiler::instrumentAlloc(CallBase *CI, Module &M) {
       }
       Value *Nmemb = CI->getArgOperand(1);
       Size = Builder.CreateMul(Size, Nmemb);
+    }else if (F->getName() == "posix_memalign") {
+      errs() << "instrumentAlloc: posix_memalign\n";
+      if (CI->arg_size() < 3) {
+        errs() << "instrumentAlloc: posix_memalign not enough arguments!\n";
+        CI->print(errs());
+        errs() << "\n";
+        return;
+      }
+      Size = CI->getArgOperand(2); 
+      Value *PtrPtr = CI->getArgOperand(0); 
+      Ptr = Builder.CreateLoad(Int8PtrTy, PtrPtr, "posix_mem_ptr"); 
+      errs() << "instrumentAlloc: posix_memalign Ptr: " << Ptr << " Size: " << Size << "\n" ;
     }
   }
 
@@ -91,6 +106,9 @@ void HeapProfiler::instrumentAlloc(CallBase *CI, Module &M) {
   DebugLoc Loc = CI->getDebugLoc();
   std::string LocationStr;
   uint64_t ID = heapid::generateAllocID(Loc, LocationStr, CI->getParent(), *CI->getFunction());
+  if (Function *F = CI->getCalledFunction()) {
+    LocationStr += F->getName();
+  }
   Value *LocationStrVal = Builder.CreateGlobalString(LocationStr);
 
   FunctionCallee RegisterFunc = M.getOrInsertFunction(
