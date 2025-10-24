@@ -9,10 +9,36 @@
 #include <iostream>
 #include <thread> 
 #include <limits>
+#include <execinfo.h>
+
+#define BP_TRACE_ID_ENABLE 0
 
 extern "C" {
 static FILE* log_file = nullptr;
 
+#ifdef __x86_64__
+#define rdtscll(val) { \
+    unsigned int __a,__d;                                        \
+    asm volatile("rdtsc" : "=a" (__a), "=d" (__d));              \
+    (val) = ((unsigned long)__a) | (((unsigned long)__d)<<32);   \
+}
+
+#else
+#define rdtscll(val) __asm__ __volatile__("rdtsc" : "=A" (val))
+#endif
+
+
+static int __thread _in_trace = 0;
+char* getTrace(){
+    if (_in_trace)
+        return NULL;
+    _in_trace = 1;
+    void* strings [10];
+    size_t size = backtrace(strings, 10);
+    char **ret = backtrace_symbols ( strings , size);
+    _in_trace = 0;
+    return (char*)ret[3];
+}
 
 struct ProfFile {
     ProfFile() {
@@ -33,17 +59,18 @@ static ProfFile f;
 struct MemoryBlock {
     void* ptr;
     uint64_t size;
+    #if BP_TRACE_ID_ENABLE
+    char* id;
+    #else
     uint64_t id;
+    #endif
+
     char location[128];
-    double alloc_ts;
-    double free_ts;
+    uint64_t alloc_ts;
+    uint64_t free_ts;
+    char* trace;
 };
 
-static double get_timestamp() {
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    return ts.tv_sec + ts.tv_nsec / 1e9;
-}
 
 static std::mutex& get_mtx() {
     static std::mutex mtx;
@@ -77,9 +104,14 @@ void* __heap_profile_register(void* ptr, uint64_t size, uint64_t id, const char*
     auto& block = memory_tree[addr];
     block.ptr = ptr;
     block.size = size;
+    
+    #if BP_TRACE_ID_ENABLE
+    block.id = getTrace();
+    #else
     block.id = id;
-    block.alloc_ts = get_timestamp();
-    block.free_ts = std::numeric_limits<double>::max();
+    #endif
+    rdtscll(block.alloc_ts)
+    block.free_ts = std::numeric_limits<uint64_t>::max();
     if (location) {
         size_t loc_len = (strlen(location) < sizeof(block.location) - 1) ? strlen(location) : sizeof(block.location) - 1;
         for (size_t i = 0; i < loc_len; ++i) block.location[i] = location[i];
@@ -102,15 +134,26 @@ void __heap_profile_unregister(void* ptr) {
     auto& memory_tree = get_memory_tree();
     auto it = memory_tree.find(addr);
     if (it != memory_tree.end()) {
-        it->second.free_ts = get_timestamp();
+        rdtscll(it->second.free_ts);
         if (log_file) {
-            fprintf(log_file, "%lu %p %s %lu %.6f %.6f\n",
+                #if BP_TRACE_ID_ENABLE
+                    fprintf(log_file, "%s  %p %s %lu %lu %lu\n",
                     it->second.id,
                     it->second.ptr,
                     it->second.location,
                     it->second.size,
                     it->second.alloc_ts,
                     it->second.free_ts);
+                #else
+                    fprintf(log_file, "%lu  %p %s %lu %lu %lu\n",
+                    it->second.id,
+                    it->second.ptr,
+                    it->second.location,
+                    it->second.size,
+                    it->second.alloc_ts,
+                    it->second.free_ts);
+                #endif
+
             fflush(log_file);
         }
         memory_tree.erase(it);
@@ -126,13 +169,23 @@ static void output_final_stats() {
     if (log_file) {
         for (const auto& pair : memory_tree) {
             const MemoryBlock& block = pair.second;
-            fprintf(log_file, "%lu %p %s %lu %.6f %.6f\n",
+            #if BP_TRACE_ID_ENABLE
+            fprintf(log_file, "%s %p %s %lu %lu %lu\n",
                     block.id,
                     block.ptr,
                     block.location,
                     block.size,
                     block.alloc_ts,
                     block.free_ts);
+            #else
+             fprintf(log_file, "%lu %p %s %lu %lu %lu\n",
+                    block.id,
+                    block.ptr,
+                    block.location,
+                    block.size,
+                    block.alloc_ts,
+                    block.free_ts);
+            #endif
         }
         fflush(log_file);
         fclose(log_file);
