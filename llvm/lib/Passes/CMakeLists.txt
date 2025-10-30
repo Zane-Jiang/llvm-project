@@ -7,6 +7,8 @@ add_llvm_component_library(LLVMPasses
   PassPlugin.cpp
   StandardInstrumentations.cpp
 
+  ${CMAKE_CURRENT_SOURCE_DIR}/../CGHMP/Analysis/VariableTypeAnalysisPass.cpp
+
   ADDITIONAL_HEADER_DIRS
   ${LLVM_MAIN_INCLUDE_DIR}/llvm
   ${LLVM_MAIN_INCLUDE_DIR}/llvm/Passes
