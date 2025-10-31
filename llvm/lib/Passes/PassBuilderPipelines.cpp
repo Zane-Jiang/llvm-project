@@ -148,6 +148,7 @@
 #include "llvm/Transforms/Vectorize/SLPVectorizer.h"
 #include "llvm/Transforms/Vectorize/VectorCombine.h"
 
+#include "llvm/CGHMP/Analysis/VariableTypeAnalysisPass.h"
 using namespace llvm;
 
 namespace llvm {
@@ -2349,6 +2350,17 @@ PassBuilder::buildO0DefaultPipeline(OptimizationLevel Level,
     addRequiredLTOPreLinkPasses(MPM);
 
   MPM.addPass(createModuleToFunctionPassAdaptor(AnnotationRemarksPass()));
+
+  char *env = getenv("CLANG_MODE");
+  if(env){
+      if(0 == strcmp(env, "INSTRUMENT")){
+        errs()<<"[LLVM O0]CLANG_PGO_MODE : Analyze\n";
+        MPM.addPass(VariableTypeAnalysisPass());
+      }else if( 0 == strcmp(env, "OPTIMIZE")){
+        errs()<<"[LLVM O0]CLANG_PGO_MODE : optimize\n";
+        // MPM.addPass(HeapAllocOptimizer());
+      }
+  }
 
   return MPM;
 }
